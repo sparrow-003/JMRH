@@ -1,8 +1,9 @@
-
 import { GoogleGenAI } from "@google/genai";
 
-// Strictly follow initialization guidelines for GoogleGenAI
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const getApiKey = () => {
+  // Attempt to get from Vite env, fallback to process.env if available
+  return import.meta.env?.VITE_GEMINI_API_KEY || (typeof process !== 'undefined' ? process.env?.API_KEY : null);
+};
 
 const SYSTEM_INSTRUCTION = `
 You are the JMRH Academic Assistant, a sophisticated AI integrated into the Journal of Multidisciplinary Research Horizon portal.
@@ -23,19 +24,41 @@ Journal Context:
 Be precise, intellectual, and helpful.
 `;
 
-export async function askAssistant(prompt: string) {
+// Initialize lazily to prevent top-level crashes
+let aiInstance: GoogleGenAI | null = null;
+
+const getAi = () => {
+  if (aiInstance) return aiInstance;
+  const key = getApiKey();
+  if (!key) {
+    console.warn("JMRH: Gemini API Key is missing. Assistant features will be running in fallback mode.");
+    return null;
+  }
   try {
-    const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: prompt,
-      config: {
-        systemInstruction: SYSTEM_INSTRUCTION,
-        temperature: 0.3, // Lower temperature for more consistent scholarly output
-      },
+    aiInstance = new GoogleGenAI(key);
+    return aiInstance;
+  } catch (e) {
+    console.error("JMRH: Failed to initialize GoogleGenAI:", e);
+    return null;
+  }
+};
+
+export async function askAssistant(prompt: string) {
+  const ai = getAi();
+  if (!ai) {
+    return "Scholarly insight is temporarily unavailable as the assistant is currently offline. Please contact the editorial office for technical support.";
+  }
+
+  try {
+    const model = ai.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      systemInstruction: SYSTEM_INSTRUCTION
     });
-    return response.text;
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    return response.text();
   } catch (error) {
     console.error("Gemini Error:", error);
-    return null;
+    return "Our scholarly analysis service is currently experiencing high load. Please try again shortly.";
   }
 }

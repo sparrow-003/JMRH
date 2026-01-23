@@ -16,22 +16,31 @@ setup({
         bg: '#FAF9F6',      // Warm Ivory
         accent: '#C5A065',  // Subtle Gold
         paper: '#FFFFFF',
-        slate: {
-          50: '#F8F9FA',
-          100: '#F1F5F9',
-          200: '#E2E8F0',
-          300: '#CBD5E1',
-          400: '#9CA3AF',
-          500: '#6B7280',
-          600: '#4B5563',
-          700: '#374151',
-          800: '#1F2937',
-          900: '#111827',
-        },
+        slate: colors.slate,
       },
       fontFamily: {
         sans: ['Outfit', 'sans-serif'],
         serif: ['Playfair Display', 'serif'],
+      },
+      extend: {
+        animation: {
+          'editorial-fade': 'editorialFade 1.5s ease-out forwards',
+          'float': 'float 6s ease-in-out infinite',
+        },
+        keyframes: {
+          editorialFade: {
+            '0%': { opacity: '0', transform: 'translateY(10px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' },
+          },
+          float: {
+            '0%, 100%': { transform: 'translateY(0)' },
+            '50%': { transform: 'translateY(-10px)' },
+          }
+        },
+        boxShadow: {
+          'academic': '0 20px 50px -12px rgba(44, 44, 44, 0.12)',
+          'gold': '0 10px 30px -5px rgba(197, 160, 101, 0.2)',
+        }
       },
       letterSpacing: {
         'tightest': '-0.05em',
@@ -42,6 +51,7 @@ setup({
 });
 
 import 'twind/shim';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -51,6 +61,8 @@ if (!rootElement) {
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </React.StrictMode>
 );

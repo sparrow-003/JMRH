@@ -14,6 +14,15 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
-    emptyOutDir: true
+    emptyOutDir: true,
+    chunkSizeWarningLimit: 1500,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          ui: ['lucide-react', 'framer-motion', 'gsap', 'lenis'],
+        }
+      }
+    }
   }
 });
