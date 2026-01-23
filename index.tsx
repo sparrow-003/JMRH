@@ -5,31 +5,32 @@ import App from './App';
 import { setup } from 'twind';
 import * as colors from 'twind/colors';
 
-// Initialize Twind with the "Version 2: Scholarly Navy & Amber" Palette
+// Initialize Twind with the "Version 3: Academic Luxury" Palette
 setup({
   theme: {
     extend: {
       colors: {
         ...colors,
-        primary: '#0F172A', // Deep Navy (Slate 950)
-        bg: '#F8FAFC',      // Crisp Slate (Slate 50)
-        accent: '#B45309',  // Academic Amber (Amber 700)
+        primary: '#2C2C2C', // Deep Charcoal
+        secondary: '#334155', // Muted Navy
+        bg: '#FAF9F6',      // Warm Ivory
+        accent: '#C5A065',  // Subtle Gold
         paper: '#FFFFFF',
         slate: {
           50: '#F8F9FA',
           100: '#F1F5F9',
           200: '#E2E8F0',
           300: '#CBD5E1',
-          400: '#94A3B8',
-          500: '#64748B',
-          600: '#475569',
-          700: '#334155',
-          800: '#1E293B',
-          900: '#0F172A',
+          400: '#9CA3AF',
+          500: '#6B7280',
+          600: '#4B5563',
+          700: '#374151',
+          800: '#1F2937',
+          900: '#111827',
         },
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Outfit', 'sans-serif'],
         serif: ['Playfair Display', 'serif'],
       },
       letterSpacing: {
