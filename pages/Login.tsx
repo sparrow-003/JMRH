@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext';
-import { Lock, Mail, ChevronRight, Info, User, MapPin, GraduationCap, Building, Key, Plus } from 'lucide-react';
+import { Lock, Mail, ChevronRight, Info, GraduationCap, Key } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { TOP_INDIAN_UNIVERSITIES, PHD_COURSES_INDIA } from '../constants';
 
@@ -68,23 +68,23 @@ const Login: React.FC = () => {
     setLoading(false);
   };
 
-  const inputClass = "w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-900/10 focus:bg-white transition-all text-sm";
-  const selectClass = "w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-900/10 focus:bg-white transition-all text-sm appearance-none cursor-pointer";
+  const inputClass = "w-full pl-12 pr-4 py-4 bg-bg border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent/10 focus:bg-white transition-all text-sm";
+  const selectClass = "w-full px-6 py-4 bg-bg border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent/10 focus:bg-white transition-all text-sm appearance-none cursor-pointer";
   const labelClass = "text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] pl-2 mb-2 block";
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4 py-20">
+    <div className="min-h-screen flex items-center justify-center bg-bg px-4 py-20">
       <div className="max-w-xl w-full">
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white rounded-[3.5rem] p-10 md:p-14 shadow-2xl shadow-blue-900/10 border border-slate-100"
+          className="bg-white rounded-[3.5rem] p-10 md:p-14 shadow-2xl shadow-accent/5 border border-slate-100"
         >
           <div className="text-center mb-12">
-             <div className="w-20 h-20 bg-blue-950 text-white rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl">
+             <div className="w-20 h-20 bg-primary text-white rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl">
                 {mode === 'login' ? <Lock size={32} /> : <GraduationCap size={32} />}
              </div>
-            <h1 className="text-4xl font-serif text-blue-950 mb-3 leading-none">
+            <h1 className="text-4xl font-serif text-primary mb-3 leading-none">
               {mode === 'login' ? 'Scholar Login' : 'Scholar Registration'}
             </h1>
             <p className="text-slate-400 text-sm font-light italic">
@@ -113,11 +113,11 @@ const Login: React.FC = () => {
                   </div>
                 </div>
                 {error && <p className="text-red-500 text-[10px] font-bold text-center uppercase tracking-widest px-4 py-3 bg-red-50 rounded-xl">{error}</p>}
-                <button type="submit" disabled={loading} className="w-full py-5 bg-blue-950 text-white rounded-2xl font-bold uppercase text-[10px] tracking-[0.4em] hover:bg-amber-800 transition-all flex items-center justify-center gap-3 shadow-xl">
+                <button type="submit" disabled={loading} className="btn-premium w-full flex items-center justify-center gap-3">
                   {loading ? 'Validating...' : 'Secure Access'} <ChevronRight size={16} />
                 </button>
                 <p className="text-center text-xs text-slate-400 font-medium pt-4">
-                  New Scholar? <button type="button" onClick={() => { setMode('register'); setStep(1); }} className="text-blue-950 font-bold hover:underline">Register Account</button>
+                  New Scholar? <button type="button" onClick={() => { setMode('register'); setStep(1); }} className="text-primary font-bold hover:underline">Register Account</button>
                 </p>
               </motion.form>
             ) : (
@@ -145,7 +145,7 @@ const Login: React.FC = () => {
                       <label className={labelClass}>Create Password</label>
                       <input type="password" value={formData.password} onChange={e => setFormData({...formData, password: e.target.value})} className={inputClass.replace('pl-12', 'pl-6')} placeholder="Minimum 6 characters" required />
                     </div>
-                    <button type="button" onClick={() => setStep(2)} className="w-full py-5 bg-blue-950 text-white rounded-2xl font-bold uppercase text-[10px] tracking-[0.3em] shadow-lg">Next: Academic Profile</button>
+                    <button type="button" onClick={() => setStep(2)} className="btn-premium w-full">Next: Academic Profile</button>
                   </div>
                 ) : (
                   <div className="space-y-6">
@@ -216,21 +216,21 @@ const Login: React.FC = () => {
                     {error && <p className="text-red-500 text-[10px] font-bold text-center uppercase tracking-widest px-4 py-3 bg-red-50 rounded-xl">{error}</p>}
                     <div className="flex gap-4">
                       <button type="button" onClick={() => setStep(1)} className="flex-1 py-5 bg-slate-100 text-slate-500 rounded-2xl font-bold uppercase text-[10px] tracking-[0.3em]">Back</button>
-                      <button type="submit" disabled={loading} className="flex-[2] py-5 bg-blue-950 text-white rounded-2xl font-bold uppercase text-[10px] tracking-[0.3em] shadow-lg">
+                      <button type="submit" disabled={loading} className="btn-premium flex-[2]">
                         {loading ? 'Creating...' : 'Register Scholar'}
                       </button>
                     </div>
                   </div>
                 )}
                 <p className="text-center text-xs text-slate-400 font-medium pt-4">
-                  Already registered? <button type="button" onClick={() => setMode('login')} className="text-blue-950 font-bold hover:underline">Login Now</button>
+                  Already registered? <button type="button" onClick={() => setMode('login')} className="text-primary font-bold hover:underline">Login Now</button>
                 </p>
               </motion.form>
             )}
           </AnimatePresence>
 
-          <div className="mt-12 p-6 bg-slate-50 rounded-[2.5rem] border border-slate-100 flex gap-4 items-start">
-            <Info className="text-amber-800 shrink-0 mt-1" size={18} />
+          <div className="mt-12 p-6 bg-bg rounded-[2.5rem] border border-slate-100 flex gap-4 items-start">
+            <Info className="text-accent shrink-0 mt-1" size={18} />
             <p className="text-[9px] text-slate-400 leading-relaxed uppercase tracking-wider font-bold">
               Verification: Profiles must provide accurate university data to be eligible for publication vetting.
             </p>

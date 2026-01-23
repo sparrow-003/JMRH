@@ -23,8 +23,8 @@ const AdminLogin = lazy(() => import('./pages/AdminLogin'));
 const AdminDashboard = lazy(() => import('./pages/dashboards/AdminDashboard'));
 
 const LoadingFallback = () => (
-  <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-    <div className="w-12 h-12 border border-slate-200 border-t-blue-900 rounded-full animate-spin"></div>
+  <div className="min-h-screen flex flex-col items-center justify-center bg-bg">
+    <div className="w-12 h-12 border border-slate-200 border-t-accent rounded-full animate-spin"></div>
     <p className="mt-8 text-[9px] text-slate-400 font-bold uppercase tracking-[0.5em] animate-pulse">Establishing Secure Session</p>
   </div>
 );

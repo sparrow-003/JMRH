@@ -81,6 +81,7 @@ export interface Article {
   doi?: string;
   pageRange: string;
   visibility: 'Public' | 'Restricted';
+  createdAt: string;
 }
 
 export interface Issue {

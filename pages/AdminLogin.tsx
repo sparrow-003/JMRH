@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext';
-import { Shield, Lock, ChevronRight } from 'lucide-react';
+import { Shield, ChevronRight } from 'lucide-react';
 
 const AdminLogin: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -22,15 +22,15 @@ const AdminLogin: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-900 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-bg px-4">
       <div className="max-w-md w-full">
-        <div className="bg-slate-800 rounded-[3rem] p-12 border border-slate-700 shadow-2xl">
+        <div className="bg-white rounded-[3rem] p-12 border border-slate-100 shadow-2xl">
           <div className="text-center mb-10">
-            <div className="inline-flex p-5 bg-amber-500/10 rounded-full mb-6">
-              <Shield size={40} className="text-amber-500" />
+            <div className="inline-flex p-5 bg-accent/10 rounded-full mb-6">
+              <Shield size={40} className="text-accent" />
             </div>
-            <h1 className="text-3xl font-serif text-white mb-2 tracking-wide">Control Panel</h1>
-            <p className="text-slate-500 text-[10px] uppercase font-bold tracking-[0.4em]">Restricted Access Only</p>
+            <h1 className="text-3xl font-serif text-primary mb-2 tracking-wide leading-none">Control Panel</h1>
+            <p className="text-slate-400 text-[10px] uppercase font-bold tracking-[0.4em]">Restricted Access Only</p>
           </div>
 
           <form onSubmit={handleAdminLogin} className="space-y-6">
@@ -40,7 +40,7 @@ const AdminLogin: React.FC = () => {
                 placeholder="Administrator ID"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="w-full px-6 py-4 bg-slate-900 border border-slate-700 rounded-2xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+                className="w-full px-6 py-4 bg-bg border border-slate-100 rounded-2xl text-primary text-sm focus:outline-none focus:ring-2 focus:ring-accent/20"
                 required
               />
               <input 
@@ -48,20 +48,20 @@ const AdminLogin: React.FC = () => {
                 placeholder="Secure Key"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                className="w-full px-6 py-4 bg-slate-900 border border-slate-700 rounded-2xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+                className="w-full px-6 py-4 bg-bg border border-slate-100 rounded-2xl text-primary text-sm focus:outline-none focus:ring-2 focus:ring-accent/20"
                 required
               />
             </div>
 
-            {error && <p className="text-red-400 text-[10px] font-bold text-center uppercase tracking-widest">{error}</p>}
+            {error && <p className="text-red-500 text-[10px] font-bold text-center uppercase tracking-widest bg-red-50 py-3 rounded-xl">{error}</p>}
 
-            <button type="submit" className="w-full py-5 bg-amber-500 text-slate-900 rounded-2xl font-bold uppercase text-[10px] tracking-[0.4em] hover:bg-amber-400 transition-all flex items-center justify-center gap-3">
-              Access Dashboard <ChevronRight size={16} />
+            <button type="submit" disabled={loading} className="btn-premium w-full flex items-center justify-center gap-3">
+              {loading ? 'Validating...' : 'Access Dashboard'} <ChevronRight size={16} />
             </button>
           </form>
 
           <div className="mt-10 text-center">
-            <p className="text-slate-600 text-[9px] font-bold uppercase tracking-[0.3em]">Activity is monitored and logged by IP.</p>
+            <p className="text-slate-400 text-[9px] font-bold uppercase tracking-[0.3em]">Activity is monitored and logged by IP.</p>
           </div>
         </div>
       </div>

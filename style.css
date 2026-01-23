@@ -1,21 +1,21 @@
 
 :root {
-    --bg: #FDFBF7;
-    --primary: #1A1A1A;
-    --accent: #B08D57;
+    --bg: #F8FAFC;
+    --primary: #0F172A;
+    --accent: #B45309;
     --paper: #FFFFFF;
-    --slate: #475569;
+    --slate: #64748B;
 }
 
-/* Ivory Scholar Foundation */
+/* Version 2 Scholarly Foundation */
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg);
-    /* Subtle paper texture */
+    /* Clean grid pattern for Version 2 */
     background-image: 
-        linear-gradient(rgba(176, 141, 87, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(176, 141, 87, 0.02) 1px, transparent 1px);
-    background-size: 100px 100px;
+        linear-gradient(rgba(15, 23, 42, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.015) 1px, transparent 1px);
+    background-size: 80px 80px;
     color: var(--primary);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
@@ -36,67 +36,69 @@ p {
     font-family: 'Playfair Display', serif;
 }
 
-/* Luxury Paper Cards */
+/* Modern Scholarly Cards */
 .crystal-card {
     background: var(--paper);
-    border: 1px solid rgba(176, 141, 87, 0.1);
-    box-shadow: 0 4px 30px -5px rgba(26, 26, 26, 0.03);
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(15, 23, 42, 0.05);
+    box-shadow: 0 4px 20px -5px rgba(15, 23, 42, 0.05);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .crystal-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-5px);
     border-color: var(--accent);
-    box-shadow: 0 30px 60px -15px rgba(176, 141, 87, 0.08);
+    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.1);
 }
 
 /* Navbar */
 .glass-header {
-    background: rgba(253, 251, 247, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(176, 141, 87, 0.1);
+    background: rgba(248, 250, 252, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.05);
 }
 
-/* Premium Button (Elite Ink) */
+/* Version 2 Premium Button (Navy & Amber) */
 .btn-premium {
     background: var(--primary);
     color: #FFFFFF !important;
     padding: 1rem 3rem;
-    border-radius: 4px; /* Scholarly square-round */
+    border-radius: 6px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-size: 0.7rem;
-    transition: all 0.4s ease;
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px -10px rgba(15, 23, 42, 0.3);
 }
 
 .btn-premium:hover {
     background: var(--accent);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px -10px rgba(180, 83, 9, 0.3);
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
 }
 ::-webkit-scrollbar-track {
     background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-    background: #E2E8F0;
+    background: #CBD5E1;
     border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent);
 }
 
-/* Page Noise */
+/* Version 2 Noise Texture */
 body::after {
     content: "";
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-    opacity: 0.015;
+    opacity: 0.02;
     pointer-events: none;
     z-index: 10000;
 }
