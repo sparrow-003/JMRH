@@ -4,11 +4,11 @@ import { Target, Compass, BookOpen, Scale, ShieldCheck } from 'lucide-react';
 
 const About: React.FC = () => {
   const aims = [
-    "Promote interdisciplinary research across various scholarly domains.",
-    "Encourage innovation by providing a platform for breakthrough findings.",
-    "Ensure ethical publishing through rigorous peer-review and plagiarism screening.",
-    "Support emerging and established researchers in global knowledge exchange.",
-    "Maintain long-term digital archives for the preservation of academic work."
+    "Advance scholarly knowledge through rigorous and original interdisciplinary research.",
+    "Encourage the integration of diverse academic perspectives to address complex real-world challenges.",
+    "Provide a credible and inclusive publication platform for both emerging scholars and established researchers.",
+    "Uphold the highest standards of research ethics, transparency, and academic integrity.",
+    "Promote meaningful collaboration among researchers across disciplines and institutions."
   ];
 
   const scopes = [

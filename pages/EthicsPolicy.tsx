@@ -20,8 +20,8 @@ const EthicsPolicy: React.FC = () => {
               </div>
               <h2 className="text-4xl font-serif text-primary">Core Compliance</h2>
             </div>
-            <p className="text-slate-600 text-lg font-light leading-relaxed">
-              JMRH adheres to the guidelines established by the <strong>University Grants Commission (UGC)</strong> and the <strong>Committee on Publication Ethics (COPE)</strong> to maintain international publishing standards.
+            <p className="text-slate-600 text-lg font-gl serif font-light leading-relaxed">
+              JMRH strictly adheres to the ethical standards prescribed by the <strong>University Grants Commission (UGC)</strong> and the <strong>Committee on Publication Ethics (COPE)</strong>. Authors bear full responsibility for the originality, authenticity, and ethical integrity of their research.
             </p>
             <div className="p-10 bg-white rounded-[3rem] border border-accent/10 space-y-6">
               <h4 className="text-[10px] font-bold text-accent uppercase tracking-[0.4em]">Plagiarism Threshold</h4>
@@ -29,7 +29,7 @@ const EthicsPolicy: React.FC = () => {
                 Strictly &lt; 10% Similarity Index.
               </p>
               <p className="text-sm text-slate-500 font-light leading-relaxed">
-                Manuscripts exceeding this limit or those involved in duplicate/simultaneous submissions will be rejected without further review.
+                Manuscripts with a similarity index exceeding 10% will be rejected outright. Simultaneous submissions and duplicate publications are strictly prohibited.
               </p>
             </div>
           </div>
@@ -44,7 +44,7 @@ const EthicsPolicy: React.FC = () => {
               ].map((item, i) => (
                 <div key={i} className="flex gap-6 items-start">
                   <div className="w-10 h-10 bg-bg rounded-xl flex items-center justify-center text-accent shrink-0 border border-accent/10">
-                     {item.icon}
+                    {item.icon}
                   </div>
                   <div>
                     <h5 className="font-bold text-primary mb-1 text-sm uppercase tracking-widest">{item.title}</h5>
@@ -59,7 +59,7 @@ const EthicsPolicy: React.FC = () => {
         {/* Misconduct Section */}
         <section className="p-12 md:p-24 bg-primary text-white rounded-[4rem] relative overflow-hidden shadow-2xl">
           <div className="absolute top-0 right-0 p-20 opacity-5">
-             <AlertTriangle size={300} />
+            <AlertTriangle size={300} />
           </div>
           <div className="relative z-10 max-w-4xl space-y-8">
             <h2 className="text-4xl font-serif italic">Handling Misconduct & Retractions</h2>

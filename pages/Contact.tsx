@@ -43,8 +43,11 @@ const Contact: React.FC = () => {
                     <MapPin size={22} />
                   </div>
                   <div>
-                    <p className="font-bold text-primary text-lg">Published by {PUBLISHER}</p>
-                    <p className="text-slate-500 font-light leading-relaxed max-w-md italic">{ADDRESS}</p>
+                    <p className="font-bold text-primary text-lg">JMRH Publications</p>
+                    <p className="text-slate-500 font-light leading-relaxed max-w-md italic">
+                      Gudalur, The Nilgiris – 643212<br />
+                      Tamil Nadu, India
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-6">
@@ -61,18 +64,18 @@ const Contact: React.FC = () => {
           </div>
 
           <div className="bg-white p-12 md:p-16 rounded-[4rem] border border-accent/10 shadow-xl space-y-10">
-             <h3 className="text-3xl font-serif text-primary">Feedback & Inquiries</h3>
-             <p className="text-sm text-slate-500 font-light leading-relaxed italic">
-               We welcome your feedback and invitation for collaboration.
-             </p>
-             <form className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <input type="text" placeholder="Scholar Name" className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none text-sm" />
-                  <input type="email" placeholder="Institution Email" className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none text-sm" />
-                </div>
-                <textarea rows={6} className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none text-sm resize-none" placeholder="Details of inquiry..."></textarea>
-                <button type="button" className="btn-premium w-full">Dispatch Message</button>
-             </form>
+            <h3 className="text-3xl font-serif text-primary">Feedback & Inquiries</h3>
+            <p className="text-sm text-slate-500 font-light leading-relaxed italic">
+              We welcome your feedback and invitation for collaboration.
+            </p>
+            <form className="space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <input type="text" placeholder="Scholar Name" className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none text-sm" />
+                <input type="email" placeholder="Institution Email" className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none text-sm" />
+              </div>
+              <textarea rows={6} className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none text-sm resize-none" placeholder="Details of inquiry..."></textarea>
+              <button type="button" className="btn-premium w-full">Dispatch Message</button>
+            </form>
           </div>
         </div>
       </div>

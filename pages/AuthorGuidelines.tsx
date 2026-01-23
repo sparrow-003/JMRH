@@ -7,23 +7,25 @@ const AuthorGuidelines: React.FC = () => {
     <div className="py-40 bg-bg min-h-screen">
       <div className="max-w-5xl mx-auto px-6">
         <header className="mb-24 text-center space-y-6">
-          <span className="text-[10px] font-bold text-accent uppercase tracking-[0.5em] block">Scholarly Submission Protocol</span>
+          <span className="text-[10px] font-bold text-accent uppercase tracking-[0.5em] block">Submission Protocol</span>
           <h1 className="text-5xl md:text-7xl font-serif text-primary tracking-tighter">Author <span className="italic font-normal serif text-accent/60">Guidelines</span></h1>
-          <p className="text-slate-400 text-lg font-serif italic max-w-2xl mx-auto">"Advancing research through standardized excellence and ethical rigor."</p>
+          <p className="text-slate-400 text-lg font-gl serif italic max-w-3xl mx-auto leading-relaxed">
+            "The Journal of Multidisciplinary Research Horizon invites authors to submit original, unpublished manuscripts that align with the journal’s aims and scope. All submissions must represent authentic scholarly work."
+          </p>
         </header>
 
         <div className="space-y-24">
           {/* Email CTA */}
           <section className="bg-primary text-white p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
-             <div className="relative z-10 space-y-8">
-               <h2 className="text-3xl font-serif">Submit Your Manuscript</h2>
-               <p className="text-slate-400 max-w-xl mx-auto text-sm font-light leading-relaxed">
-                 JMRH invites original, unpublished research papers for its monthly editions. Submissions should be sent electronically to:
-               </p>
-               <div className="inline-block px-10 py-4 bg-accent text-white font-bold text-xl font-serif tracking-tight">
-                 submit.jmrh@gmail.com
-               </div>
-             </div>
+            <div className="relative z-10 space-y-8">
+              <h2 className="text-3xl font-serif">Submit Your Manuscript</h2>
+              <p className="text-slate-400 max-w-xl mx-auto text-sm font-light leading-relaxed">
+                JMRH invites original, unpublished research papers for its monthly editions. Submissions should be sent electronically to:
+              </p>
+              <div className="inline-block px-10 py-4 bg-accent text-white font-bold text-xl font-serif tracking-tight">
+                submit.jmrh@gmail.com
+              </div>
+            </div>
           </section>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
