@@ -1,0 +1,169 @@
+
+import React, { useState, useEffect } from 'react';
+import { Download, User, Hash, Lock, Sparkles, Loader2, Calendar, FileText } from 'lucide-react';
+import { MOCK_ARCHIVES } from '../constants';
+import { useAuth } from '../components/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { askAssistant } from '../services/gemini';
+import { supabase } from '../lib/supabase';
+import { Article, Issue } from '../types';
+
+const Archives: React.FC = () => {
+  const { isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
+  const [summaries, setSummaries] = useState<Record<string, string>>({});
+  const [loadingSummaries, setLoadingSummaries] = useState<Record<string, boolean>>({});
+  const [archives, setArchives] = useState<Issue[]>(MOCK_ARCHIVES);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetchArchives();
+  }, []);
+
+  const fetchArchives = async () => {
+    setIsLoading(true);
+    try {
+      const { data: issuesData, error: issuesError } = await supabase
+        .from('issues')
+        .select(`
+          volume,
+          issue_no,
+          month,
+          year,
+          articles:articles(*)
+        `)
+        .order('year', { ascending: false })
+        .order('volume', { ascending: false })
+        .order('issue_no', { ascending: false });
+
+      if (issuesData && !issuesError) {
+        const formattedArchives: Issue[] = issuesData.map((issue: any) => ({
+          volume: issue.volume,
+          issueNo: issue.issue_no,
+          month: issue.month,
+          year: issue.year,
+          articles: (issue.articles || []).map((art: any) => ({
+            id: art.id,
+            title: art.title,
+            authors: art.authors || [],
+            abstract: art.abstract || '',
+            keywords: art.keywords || [],
+            pdfUrl: art.pdf_url,
+            doi: art.doi,
+            pageRange: art.page_range,
+            visibility: art.visibility
+          }))
+        }));
+        if (formattedArchives.length > 0) setArchives(formattedArchives);
+      }
+    } catch (err) {
+      console.error('Archive fetch error:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSummarize = async (article: Article) => {
+    if (loadingSummaries[article.id] || summaries[article.id]) return;
+    
+    setLoadingSummaries(prev => ({ ...prev, [article.id]: true }));
+    const summary = await askAssistant(`Provide a technical 2-sentence summary of: ${article.title}. Abstract: ${article.abstract}`);
+    setSummaries(prev => ({ ...prev, [article.id]: summary || "Analysis unavailable." }));
+    setLoadingSummaries(prev => ({ ...prev, [article.id]: false }));
+  };
+
+  const handleDownload = (pdfUrl: string, visibility: 'Public' | 'Restricted') => {
+    if (visibility === 'Restricted' && !isAuthenticated) {
+      navigate('/login?redirect=/archives');
+      return;
+    }
+    window.open(pdfUrl, '_blank');
+  };
+
+  return (
+    <div className="py-40 bg-bg min-h-screen">
+      <div className="max-w-7xl mx-auto px-6">
+        <header className="mb-24 text-center space-y-6">
+          <span className="text-[10px] font-bold text-accent uppercase tracking-[0.5em] block">Digital Research Repository</span>
+          <h1 className="text-5xl md:text-8xl font-serif text-primary tracking-tighter leading-none">Journal <span className="italic font-normal serif text-accent/60">Archives</span></h1>
+          <p className="text-slate-400 text-lg font-serif italic max-w-2xl mx-auto leading-relaxed">
+            Permanent, open-access preservation of published scholarship, organized by volume and issue.
+          </p>
+        </header>
+
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center py-40 gap-4">
+            <Loader2 className="animate-spin text-accent" size={32} />
+            <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Querying Digital Vaults...</p>
+          </div>
+        ) : (
+          <div className="space-y-32">
+            {archives.map((issue) => (
+              <div key={`${issue.volume}-${issue.issueNo}`} className="space-y-12">
+                <div className="flex items-center gap-8 border-b border-accent/10 pb-8">
+                  <div className="w-16 h-16 bg-primary text-white flex items-center justify-center shadow-lg">
+                    <span className="text-2xl font-serif font-bold italic">{issue.volume}</span>
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-serif text-primary font-medium">Volume {issue.volume}, Issue {issue.issueNo}</h2>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.4em] mt-1 flex items-center gap-2">
+                       <Calendar size={12} className="text-accent" /> {issue.month} {issue.year}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-8">
+                  {issue.articles.length > 0 ? issue.articles.map((article) => (
+                    <motion.div 
+                      key={article.id} 
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      className="bg-white p-10 border border-accent/5 hover:border-accent/20 transition-all group"
+                    >
+                      <div className="flex flex-col md:flex-row justify-between gap-10">
+                        <div className="space-y-6 flex-grow">
+                          <div className="flex items-center gap-4">
+                            <span className="text-[8px] font-bold text-accent bg-accent/5 px-4 py-1 border border-accent/10 uppercase tracking-widest">Article PDF</span>
+                            {article.doi && <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">DOI: {article.doi}</span>}
+                          </div>
+                          <h3 className="text-2xl font-serif text-primary leading-tight font-medium group-hover:text-accent transition-colors">{article.title}</h3>
+                          <div className="flex items-center gap-6 text-[10px] text-slate-400 font-medium uppercase tracking-widest">
+                            <span className="flex items-center gap-2"><User size={14} className="text-accent" /> {article.authors.join(', ')}</span>
+                            <span>Page: {article.pageRange}</span>
+                          </div>
+                          
+                          {summaries[article.id] ? (
+                            <p className="p-6 bg-bg border-l-2 border-accent italic text-slate-500 text-sm leading-relaxed">
+                              "{summaries[article.id]}"
+                            </p>
+                          ) : (
+                            <button onClick={() => handleSummarize(article)} disabled={loadingSummaries[article.id]} className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-widest text-accent hover:underline">
+                              {loadingSummaries[article.id] ? <Loader2 size={12} className="animate-spin" /> : <Sparkles size={12} />} Get Scholar Insight
+                            </button>
+                          )}
+                        </div>
+                        <div className="flex flex-col justify-center items-end shrink-0">
+                          <button onClick={() => handleDownload(article.pdfUrl, article.visibility)} className="btn-premium flex items-center gap-3">
+                            <Download size={14} /> Download PDF
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )) : (
+                    <div className="p-16 text-center border border-dashed border-accent/10">
+                      <p className="text-slate-300 font-serif italic">No articles indexed for this issue yet.</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Archives;
