@@ -22,6 +22,7 @@
     "twind": "^0.16.19"
   },
   "devDependencies": {
+    "@types/node": "^22.10.10",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",
