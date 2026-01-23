@@ -11,21 +11,21 @@
   },
   "dependencies": {
     "@google/genai": "^1.38.0",
-    "@studio-freight/lenis": "^1.0.42",
+    "lenis": "^1.1.18",
     "@supabase/supabase-js": "^2.48.1",
-    "framer-motion": "^11.0.0",
-    "gsap": "^3.12.5",
+    "framer-motion": "^11.18.2",
+    "gsap": "^3.12.7",
     "lucide-react": "^0.475.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.1.0",
+    "react-router-dom": "^7.1.5",
     "twind": "^0.16.19"
   },
   "devDependencies": {
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",
-    "typescript": "^5.7.0",
+    "typescript": "^5.7.3",
     "vite": "^6.1.0"
   }
 }
