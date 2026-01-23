@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef } from 'react';
-import { ArrowUpRight, ShieldCheck, Globe, Trophy, GraduationCap, PenTool, BookOpen, ChevronRight } from 'lucide-react';
+import { ArrowUpRight, ShieldCheck, Globe, Trophy, GraduationCap, PenTool, BookOpen, ChevronRight, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
