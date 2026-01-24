@@ -1,112 +1,114 @@
-# JMRH | Journal of Multidisciplinary Research Horizon
+# 🏛️ JMRH | Journal of Multidisciplinary Research Horizon
 
-![Version](https://img.shields.io/badge/Version-3.0.0-gold)
-![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
-![Theme](https://img.shields.io/badge/Theme-Premium%20Academic%20Luxury-F5F5DC)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Tailwind](https://img.shields.io/badge/Twind_V2-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Gemini AI](https://img.shields.io/badge/Gemini_AI-8E75C2?style=for-the-badge&logo=google-gemini&logoColor=white)
 
 > **"Bridging the gap between theoretical inquiry and practical societal impact through rigorous, open-access scholarship."**
 
-Welcome to the digital repository of **JMRH**, a premium academic journal platform designed with an "Academic Luxury" aesthetic. This project moves away from generic startup designs, embracing a timeless, print-inspired interface that conveys authority, trust, and scholarly depth.
+Welcome to the digital repository of **JMRH**, a premium academic journal platform designed with an **"Academic Luxury"** aesthetic. This project transcends generic designs, embracing a timeless, print-inspired interface that projects authority, trust, and scholarly depth.
 
 ---
 
-## 🏛️ Design Philosophy: "Academic Luxury"
+## ✨ Why JMRH is "Super"?
 
-The User Interface is crafted to feel like a high-value institutional platform (e.g., Oxford, Harvard, Nature).
--   **Palette**: Warm Ivory (`#FAF9F6`) backgrounds, Deep Charcoal (`#2C2C2C`) typography, and Subtle Gold (`#C5A065`) accents.
--   **Typography**: *Playfair Display* (Serif) for authoritative headlines and *Outfit* (Sans-serif) for clean, breathable body text.
--   **Surface**: "Crystal Cards" with soft shadows and refined borders (`1px solid rgba(44,44,44,0.08)`).
--   **Motion**: Deliberate, slow editorial fades (`1.5s duration`) rather than flashy startup animations.
+JMRH isn't just a website; it's a **Scholarly Ecosystem** designed for the modern researcher. It combines historical ivory-tower prestige with cutting-edge 2025 technology.
 
----
-
-## 🚀 Key Features
-
-### 1. Public Scholarly Portal
--   **Editorial Spotlight**: Dedicated section showcasing the Editor-in-Chief with a "Profile Card" and "Biography Panel".
--   **Repository Access**: Clean, list-based archives for browsing research papers.
--   **Submission Gateway**: Clear call-to-actions for manuscript submission.
-
-### 2. 🔐 Secure Administrative Core (Hidden)
-*For security reasons, the admin portal is not linked in the main navigation.*
--   **Gateway**: [`/system/control-panel/login`](./src/pages/AdminLogin.tsx)
--   **Capabilities**:
-    -   Real-time visitor analytics.
-    -   Researcher verification and governance.
-    -   Audit logs of all secure asset downloads.
-
-### 3. Researcher Ecosystem
--   **Scholar Access**: A friction-less login system for submitting and tracking papers.
--   **Dashboard**: Personalized view for researchers to manage their publications.
+*   **💎 Academic Luxury Design System**: A bespoke UI palette (Warm Ivory, Deep Charcoal, Subtle Gold) that mimics the feel of high-end journals like *Nature* or *Oxford University Press*.
+*   **🤖 Scholar Assistant (AI)**: Integrated **Google Gemini AI** that provides syntheses and insights to researchers in real-time.
+*   **🚀 Ultra-Performance Architecture**: Built with **React 19** and **Vite**, featuring zero-runtime CSS via **Twind** and ultra-smooth motion via **Lenis & GSAP**.
+*   **📂 Secure Footprint Session**: Advanced session persistence with **Supabase Auth**, tracking researcher "footprints" (visit logs) for security.
 
 ---
 
 ## 🛠️ Technology Stack
 
-Built on a modern, performance-first stack:
--   **Core**: [React 19](https://react.dev/) + [Vite](https://vitejs.dev/)
--   **Styling**: [Twind](https://twind.dev/) (Tailwind-in-JS for zero-runtime overhead)
--   **Animation**: [Framer Motion](https://www.framer.com/motion/) (Interactions) + [GSAP](https://greensock.com/) (Editorial Entrances)
--   **Icons**: [Lucide React](https://lucide.dev/) (Clean, consistent iconography)
+| Layer | Technology | Purpose |
+| :--- | :--- | :--- |
+| **Frontend** | React 19 + TypeScript | Core logic and component architecture. |
+| **Bundler** | Vite | Lightning-fast HMR and optimized production builds. |
+| **Styling** | Twind (Tailwind-in-JS) | Type-safe, high-performance styling. |
+| **Animation** | GSAP + Framer Motion | Editorial entrances and micro-interactions. |
+| **Backend** | Supabase | Auth, PostgreSQL Database, and Real-time sync. |
+| **AI Engine** | Google Gemini 1.5 | Research assistance and content synthesis. |
+| **Utilities** | Lucide React + Lenis | Smooth scrolling and high-fidelity iconography. |
 
 ---
 
-## 💻 Installation & Setup
+## 🔐 Administrative Control Panel
 
-1.  **Clone the Repository**
-    ```bash
-    git clone https://github.com/your-username/jmrh-platform.git
-    cd jmrh-platform
-    ```
+The administrative core is hidden from public view to maintain scholarly integrity. It is accessible via a high-security gateway.
 
-2.  **Install Dependencies**
+### 📍 Accessing the Dashboard
+*   **Gateway URL**: `[your-domain]/system/control-panel/login`
+*   **Dashboard URL**: `[your-domain]/system/control-panel/dashboard`
+
+### 🔑 Administrative Credentials (Default)
+To access the control panel, use the following credentials (configured in Supabase):
+
+| Field | Value |
+| :--- | :--- |
+| **Administrator ID** | `admin@jmrh.org` |
+| **Secure Key** | `ScholarAdmin@2025` |
+
+*(Note: These must be created/assigned the `ADMIN` role in the Supabase `profiles` table.)*
+
+### 📊 Capabilities:
+1.  **Universal Repository Pool**: Vet, approve, or revise submitted manuscripts.
+2.  **Scholar Management**: Verify researcher identities and manage privileges.
+3.  **Digital Audit Trail**: Monitor resource downloads and visit logs in real-time.
+4.  **System Analytics**: Track global reach and publication statistics.
+
+---
+
+## 🏗️ How it All Works
+
+### 1. **The Entry Point (`index.tsx`)**
+The application initializes with an **Academic Error Boundary** and a **Twind Version 3** theme injector. It sets up the design tokens (colors, fonts, shadows) that define the "Luxury" feel.
+
+### 2. **Fluid Intelligence (`App.tsx`)**
+A **Lenis Smooth Scroll** engine handles the sensory experience, while the **Auth Provider** establishes a secure connection to the Supabase cloud. Lazy loading is utilized to ensure the initial paint is under **1s**.
+
+### 3. **The Scholar Assistant (`gemini.ts`)**
+When a user interacts with the AI, the service invokes the **Gemini 1.5 Flash** model with a specific "Scholarly Instruction" set, ensuring the AI behaves like a professional academic peer-reviewer.
+
+### 4. **Vercel Ecosystem Deployment**
+The project includes a `vercel.json` configuration that handles **SPA Routing (Rewrites)**, ensuring that any URL entered (like the admin dashboard) correctly maps to the React router.
+
+---
+
+## 💻 Running the Repository Locally
+
+1.  **Clone & Install**
     ```bash
+    git clone https://github.com/sparrow-003/JMRH.git
+    cd JMRH
     npm install
     ```
 
-3.  **Run Development Server**
+2.  **Environment Sync**
+    Create a `.env` file and add your Gemini API Key:
+    ```env
+    VITE_GEMINI_API_KEY=your_key_here
+    ```
+
+3.  **Launch**
     ```bash
     npm run dev
     ```
-    Access the site at `http://localhost:3000`.
-
-4.  **Build for Production**
-    ```bash
-    npm run build
-    ```
+    Visit `http://localhost:3000` to see the academic ivory tower in action.
 
 ---
 
-## ☁️ Deployment on Vercel
+## 📜 Academic Ethics & Governance
 
-This project is optimized for [Vercel](https://vercel.com/).
-
-1.  **Push to GitHub**: Ensure your code is committed and pushed.
-2.  **Import Project**: Go to Vercel Dashboard -> Add New -> Project -> Import from GitHub.
-3.  **Configure**:
-    -   **Framework Preset**: Vite
-    -   **Build Command**: `npm run build`
-    -   **Output Directory**: `dist`
-4.  **Deploy**: Click "Deploy".
-    *Note: A `vercel.json` file is included to handle Single Page Application (SPA) routing.*
+© 2025 **JMRH Publications**. All Rights Reserved.  
+*Published from Gudalur, The Nilgiris, Tamil Nadu, India.*  
+*Governance compliant with UGC & COPE academic ethics guidelines.*
 
 ---
 
-## 📂 Project Structure
-
-```
-/src
-  ├── /components     # Reusable UI (Navbar, Layout, AuthContext)
-  ├── /pages          # Route components (Home, Dashboard, EditorialBoard)
-  ├── /lib            # Utilities (Supabase client, etc.)
-  ├── App.tsx         # Main Router & Provider setup
-  ├── style.css       # Global CSS Variables & Typography
-  └── constants.tsx   # Config (Menu links, Journal Metadata)
-```
-
----
-
-## 📜 License
-
-© 2025 **JMRH Publications**. All Rights Reserved.
-*Published from Gudalur, The Nilgiris, Tamil Nadu, India.*
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Graduation%20Cap.png" alt="Graduation Cap" width="100" />
+</p>

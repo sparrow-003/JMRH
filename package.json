@@ -11,7 +11,7 @@
     "clean": "rm -rf dist node_modules"
   },
   "dependencies": {
-    "@google/genai": "^1.38.0",
+    "@google/generative-ai": "^0.21.0",
     "lenis": "^1.1.18",
     "@supabase/supabase-js": "^2.48.1",
     "framer-motion": "^11.18.2",

@@ -1,6 +1,6 @@
 
 import React, { Suspense, lazy, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { AuthProvider, useAuth } from './components/AuthContext';
 import ChatAssistant from './components/ChatAssistant';
@@ -32,9 +32,9 @@ const LoadingFallback = () => (
 // High-security guard for Administrative routes
 const AdminRoute = ({ children }: { children: React.ReactNode }) => {
   const { role, isAuthenticated, isLoading } = useAuth();
-  
+
   if (isLoading) return <LoadingFallback />;
-  
+
   if (!isAuthenticated || role !== 'ADMIN') {
     // Redirect to the hidden admin login if unauthorized
     return <Navigate to="/system/control-panel/login" replace />;
@@ -102,17 +102,17 @@ const AppContent: React.FC = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/system/control-panel/login" element={<AdminLogin />} />
-            
+
             {/* Protected Admin Dashboard */}
-            <Route 
-              path="/system/control-panel/dashboard" 
+            <Route
+              path="/system/control-panel/dashboard"
               element={
                 <AdminRoute>
                   <AdminDashboard />
                 </AdminRoute>
-              } 
+              }
             />
-            
+
             <Route path="/user/:id" element={<Dashboard />} />
           </Routes>
         </Suspense>

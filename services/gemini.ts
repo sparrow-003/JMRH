@@ -1,8 +1,8 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const getApiKey = () => {
   // Attempt to get from Vite env, fallback to process.env if available
-  return import.meta.env?.VITE_GEMINI_API_KEY || (typeof process !== 'undefined' ? process.env?.API_KEY : null);
+  return import.meta.env?.VITE_GEMINI_API_KEY || (typeof process !== 'undefined' ? process.env?.API_KEY : null) || '';
 };
 
 const SYSTEM_INSTRUCTION = `
@@ -25,7 +25,7 @@ Be precise, intellectual, and helpful.
 `;
 
 // Initialize lazily to prevent top-level crashes
-let aiInstance: GoogleGenAI | null = null;
+let aiInstance: GoogleGenerativeAI | null = null;
 
 const getAi = () => {
   if (aiInstance) return aiInstance;
@@ -35,10 +35,10 @@ const getAi = () => {
     return null;
   }
   try {
-    aiInstance = new GoogleGenAI(key);
+    aiInstance = new GoogleGenerativeAI(key);
     return aiInstance;
   } catch (e) {
-    console.error("JMRH: Failed to initialize GoogleGenAI:", e);
+    console.error("JMRH: Failed to initialize GoogleGenerativeAI:", e);
     return null;
   }
 };
