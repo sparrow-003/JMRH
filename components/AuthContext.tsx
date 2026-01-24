@@ -6,7 +6,7 @@ import { supabase } from '../lib/supabase';
 interface AuthContextType {
   user: UserProfile | null;
   role: UserRole;
-  login: (email: string, password?: string) => Promise<{ success: boolean; error?: string }>;
+  login: (email: string, password?: string) => Promise<{ success: boolean; error?: string; role?: UserRole }>;
   register: (data: Partial<UserProfile> & { password?: string }) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
   isAuthenticated: boolean;
