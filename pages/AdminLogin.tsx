@@ -22,14 +22,20 @@ const AdminLogin: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
+
     const result = await login(email, password);
+
     if (result.success) {
-      // Small delay for smooth transition
-      setTimeout(() => {
-        navigate('/system/control-panel/dashboard');
-      }, 500);
+      // Re-fetch context to ensure role is updated
+      if (role === 'ADMIN') {
+        setTimeout(() => {
+          navigate('/system/control-panel/dashboard');
+        }, 500);
+      } else {
+        setError('Access Denied: Scholar account does not have administrative privileges.');
+      }
     } else {
-      setError('Unauthorized access attempt logged.');
+      setError(result.error || 'Unauthorized access attempt logged.');
     }
     setLoading(false);
   };
