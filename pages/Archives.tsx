@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { 
-  Download, User, Hash, Lock, Sparkles, Loader2, Calendar, 
-  FileText, Filter, ListFilter, ArrowUpDown, SortAsc, SortDesc 
+import {
+  Download, User, Hash, Lock, Sparkles, Loader2, Calendar,
+  FileText, Filter, ListFilter, ArrowUpDown, SortAsc, SortDesc
 } from 'lucide-react';
 import { MOCK_ARCHIVES } from '../constants';
 import { useAuth } from '../components/AuthContext';
@@ -22,7 +22,7 @@ const Archives: React.FC = () => {
   const [loadingSummaries, setLoadingSummaries] = useState<Record<string, boolean>>({});
   const [archives, setArchives] = useState<Issue[]>(MOCK_ARCHIVES);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   // Filtering state with localStorage persistence
   const [selectedYear, setSelectedYear] = useState<string>(() => {
     return localStorage.getItem('jmrh_archives_filter_year') || 'All';
@@ -94,7 +94,7 @@ const Archives: React.FC = () => {
   // Apply filtering and internal article sorting
   const processedArchives = useMemo(() => {
     let result = archives;
-    
+
     // 1. Filter by year
     if (selectedYear !== 'All') {
       result = archives.filter(issue => issue.year.toString() === selectedYear);
@@ -119,9 +119,9 @@ const Archives: React.FC = () => {
 
   const handleSummarize = async (article: Article) => {
     if (loadingSummaries[article.id] || summaries[article.id]) return;
-    
+
     setLoadingSummaries(prev => ({ ...prev, [article.id]: true }));
-    
+
     // Specifically request a 2-sentence technical summary
     const prompt = `
       As a scholarly assistant, provide a strictly 2-sentence technical summary for this research article.
@@ -130,18 +130,36 @@ const Archives: React.FC = () => {
       Title: ${article.title}
       Abstract: ${article.abstract || 'No abstract provided.'}
     `;
-    
+
     const summary = await askAssistant(prompt);
     setSummaries(prev => ({ ...prev, [article.id]: summary || "Scholarly analysis temporarily unavailable." }));
     setLoadingSummaries(prev => ({ ...prev, [article.id]: false }));
   };
 
-  const handleDownload = (pdfUrl: string, visibility: 'Public' | 'Restricted') => {
-    if (visibility === 'Restricted' && !isAuthenticated) {
+  const handleDownload = async (article: Article) => {
+    if (article.visibility === 'Restricted' && !isAuthenticated) {
       navigate('/login?redirect=/archives');
       return;
     }
-    window.open(pdfUrl, '_blank');
+
+    // Log the download if authenticated
+    if (isAuthenticated && user) {
+      try {
+        await supabase.from('download_logs').insert({
+          user_id: user.id,
+          file_name: article.title,
+          timestamp: new Date().toISOString()
+        });
+      } catch (e) {
+        console.error("Log failed:", e);
+      }
+    }
+
+    if (article.pdfUrl) {
+      window.open(article.pdfUrl, '_blank');
+    } else {
+      alert("Digital asset is currently being indexed and is temporarily unavailable.");
+    }
   };
 
   const toggleSortOrder = () => setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
@@ -159,7 +177,7 @@ const Archives: React.FC = () => {
 
         {/* Filters and Controls */}
         <div className="flex flex-col items-center gap-12 mb-24">
-          
+
           {/* Year Filter */}
           <div className="space-y-6 w-full flex flex-col items-center">
             <div className="flex items-center gap-4 text-[10px] font-bold text-slate-300 uppercase tracking-widest">
@@ -171,11 +189,10 @@ const Archives: React.FC = () => {
                 <button
                   key={year}
                   onClick={() => setSelectedYear(year)}
-                  className={`px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-500 ${
-                    selectedYear === year 
-                      ? 'bg-primary text-white shadow-xl scale-105' 
+                  className={`px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-500 ${selectedYear === year
+                      ? 'bg-primary text-white shadow-xl scale-105'
                       : 'bg-transparent text-slate-400 hover:text-primary hover:bg-bg'
-                  }`}
+                    }`}
                 >
                   {year === 'All' ? 'Universal Archive' : year}
                 </button>
@@ -185,35 +202,34 @@ const Archives: React.FC = () => {
 
           {/* Sort Controls */}
           <div className="flex flex-col md:flex-row items-center gap-8 pt-4">
-             <div className="flex items-center gap-4 text-[10px] font-bold text-slate-300 uppercase tracking-widest">
-               <ArrowUpDown size={14} className="text-accent" />
-               Sort Internal Articles
-             </div>
-             <div className="flex items-center gap-3 bg-white p-1.5 rounded-full border border-accent/5 shadow-sm">
-                {[
-                  { id: 'date', label: 'Date', icon: <Calendar size={12} /> },
-                  { id: 'title', label: 'Title', icon: <FileText size={12} /> },
-                  { id: 'author', label: 'Author', icon: <User size={12} /> },
-                ].map((option) => (
-                  <button
-                    key={option.id}
-                    onClick={() => setSortBy(option.id as SortField)}
-                    className={`flex items-center gap-2 px-6 py-2 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all ${
-                      sortBy === option.id ? 'bg-accent text-white' : 'text-slate-400 hover:bg-bg'
+            <div className="flex items-center gap-4 text-[10px] font-bold text-slate-300 uppercase tracking-widest">
+              <ArrowUpDown size={14} className="text-accent" />
+              Sort Internal Articles
+            </div>
+            <div className="flex items-center gap-3 bg-white p-1.5 rounded-full border border-accent/5 shadow-sm">
+              {[
+                { id: 'date', label: 'Date', icon: <Calendar size={12} /> },
+                { id: 'title', label: 'Title', icon: <FileText size={12} /> },
+                { id: 'author', label: 'Author', icon: <User size={12} /> },
+              ].map((option) => (
+                <button
+                  key={option.id}
+                  onClick={() => setSortBy(option.id as SortField)}
+                  className={`flex items-center gap-2 px-6 py-2 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all ${sortBy === option.id ? 'bg-accent text-white' : 'text-slate-400 hover:bg-bg'
                     }`}
-                  >
-                    {option.icon} {option.label}
-                  </button>
-                ))}
-                <div className="w-px h-4 bg-slate-100 mx-2" />
-                <button 
-                  onClick={toggleSortOrder}
-                  className="p-2 text-primary hover:bg-bg rounded-full transition-colors"
-                  title={`Current order: ${sortOrder === 'asc' ? 'Ascending' : 'Descending'}`}
                 >
-                  {sortOrder === 'asc' ? <SortAsc size={16} /> : <SortDesc size={16} />}
+                  {option.icon} {option.label}
                 </button>
-             </div>
+              ))}
+              <div className="w-px h-4 bg-slate-100 mx-2" />
+              <button
+                onClick={toggleSortOrder}
+                className="p-2 text-primary hover:bg-bg rounded-full transition-colors"
+                title={`Current order: ${sortOrder === 'asc' ? 'Ascending' : 'Descending'}`}
+              >
+                {sortOrder === 'asc' ? <SortAsc size={16} /> : <SortDesc size={16} />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -226,8 +242,8 @@ const Archives: React.FC = () => {
           <div className="space-y-32">
             <AnimatePresence mode="popLayout">
               {processedArchives.length > 0 ? processedArchives.map((issue) => (
-                <motion.div 
-                  key={`${issue.volume}-${issue.issueNo}`} 
+                <motion.div
+                  key={`${issue.volume}-${issue.issueNo}`}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
@@ -246,15 +262,15 @@ const Archives: React.FC = () => {
                         </span>
                       </div>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.4em] mt-1 flex items-center gap-2">
-                         <Calendar size={12} className="text-accent" /> {issue.month} {issue.year}
+                        <Calendar size={12} className="text-accent" /> {issue.month} {issue.year}
                       </p>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 gap-8">
                     {issue.articles.length > 0 ? issue.articles.map((article) => (
-                      <motion.div 
-                        key={article.id} 
+                      <motion.div
+                        key={article.id}
                         layout
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -267,7 +283,7 @@ const Archives: React.FC = () => {
                               <span className="text-[8px] font-bold text-accent bg-accent/5 px-4 py-1 border border-accent/10 uppercase tracking-widest">Article PDF</span>
                               {article.doi && <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">DOI: {article.doi}</span>}
                             </div>
-                            
+
                             <h3 className="text-2xl font-serif text-primary leading-tight font-medium group-hover:text-accent transition-colors">
                               {article.title}
                             </h3>
@@ -275,7 +291,7 @@ const Archives: React.FC = () => {
                             {/* Scholar Insight Section */}
                             <AnimatePresence>
                               {summaries[article.id] && (
-                                <motion.div 
+                                <motion.div
                                   initial={{ height: 0, opacity: 0 }}
                                   animate={{ height: 'auto', opacity: 1 }}
                                   className="overflow-hidden"
@@ -300,26 +316,26 @@ const Archives: React.FC = () => {
                                 <Calendar size={14} className="text-slate-200" /> Published: {new Date(article.createdAt).toLocaleDateString()}
                               </span>
                             </div>
-                            
+
                             {!summaries[article.id] && (
-                              <button 
-                                onClick={() => handleSummarize(article)} 
-                                disabled={loadingSummaries[article.id]} 
+                              <button
+                                onClick={() => handleSummarize(article)}
+                                disabled={loadingSummaries[article.id]}
                                 className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-widest text-accent hover:text-primary transition-colors disabled:opacity-50"
                               >
                                 {loadingSummaries[article.id] ? (
                                   <Loader2 size={12} className="animate-spin" />
                                 ) : (
                                   <Sparkles size={12} />
-                                )} 
+                                )}
                                 {loadingSummaries[article.id] ? 'Generating Insight...' : 'Get Scholar Insight'}
                               </button>
                             )}
                           </div>
-                          
+
                           <div className="flex flex-col justify-center items-end shrink-0">
-                            <button 
-                              onClick={() => handleDownload(article.pdfUrl, article.visibility)} 
+                            <button
+                              onClick={() => handleDownload(article.pdfUrl, article.visibility)}
                               className="btn-premium flex items-center gap-3"
                             >
                               <Download size={14} /> Download PDF

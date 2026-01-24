@@ -36,25 +36,27 @@ JMRH isn't just a website; it's a **Scholarly Ecosystem** designed for the moder
 
 ---
 
+---
+
 ## 🔐 Administrative Control Panel
 
 The administrative core is hidden from public view to maintain scholarly integrity. It is accessible via a high-security gateway.
 
-### 📍 Accessing the Dashboard
-*   **Gateway URL**: `[your-domain]/system/control-panel/login`
-*   **Dashboard URL**: `[your-domain]/system/control-panel/dashboard`
-
-### 🔑 Administrative Credentials (Default)
-To access the control panel, use the following credentials (configured in Supabase):
+### 🔑 Default Administrative Credentials
+Use these **real** credentials to access the system (after completing the [Supabase Setup](./SUPABASE_SETUP.md)):
 
 | Field | Value |
 | :--- | :--- |
 | **Administrator ID** | `admin@jmrh.org` |
 | **Secure Key** | `ScholarAdmin@2025` |
 
-*(Note: These must be created/assigned the `ADMIN` role in the Supabase `profiles` table.)*
+### 📍 Accessing the Dashboard
+*   **Gateway URL**: `[your-domain]/system/control-panel/login`
+*   **Dashboard URL**: `[your-domain]/system/control-panel/dashboard`
 
-### 📊 Capabilities:
+> **Pro-Tip**: To initialize your database tables and triggers, please follow the [Supabase Setup Guide](./SUPABASE_SETUP.md).
+
+### 📊 Governance Capabilities:
 1.  **Universal Repository Pool**: Vet, approve, or revise submitted manuscripts.
 2.  **Scholar Management**: Verify researcher identities and manage privileges.
 3.  **Digital Audit Trail**: Monitor resource downloads and visit logs in real-time.

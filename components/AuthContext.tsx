@@ -75,7 +75,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         status: 'Active',
         department: 'Multidisciplinary'
       }).select().single();
-      
+
       if (error) {
         console.error("Profile recovery failed. Table might be missing.");
         return null;
@@ -157,10 +157,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (authError) return { success: false, error: authError.message };
     if (!authData.user) return { success: false, error: 'Signup failed.' };
 
-    const { error: profileError } = await supabase.from('profiles').insert({
+    const { error: profileError } = await supabase.from('profiles').upsert({
       id: authData.user.id,
-      first_name: data.firstName,
-      last_name: data.lastName,
+      first_name: data.firstName || 'Scholar',
+      last_name: data.lastName || authData.user.id.slice(0, 4),
       email: data.email,
       role: data.role || 'USER',
       city: data.city,
@@ -174,12 +174,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
 
     if (profileError) {
-      if (profileError.message.includes('profiles')) {
-        return { success: false, error: "Database table 'profiles' is missing. Please run the SQL setup script provided in the documentation." };
-      }
       return { success: false, error: `Profile sync failed: ${profileError.message}` };
     }
-    
+
     await fetchProfile(authData.user.id);
     return { success: true };
   };
@@ -198,16 +195,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         ip: 'Scholar Session',
         timestamp: new Date().toISOString()
       });
-    } catch (e) {}
+    } catch (e) { }
   };
 
   return (
-    <AuthContext.Provider value={{ 
-      user, 
-      role: user?.role || 'PUBLIC', 
-      login, 
+    <AuthContext.Provider value={{
+      user,
+      role: user?.role || 'PUBLIC',
+      login,
       register,
-      logout, 
+      logout,
       isAuthenticated: !!user,
       isLoading,
       logVisit
