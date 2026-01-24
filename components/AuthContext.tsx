@@ -131,7 +131,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
   }, []);
 
-  const login = async (email: string, password?: string) => {
+  const login = async (email: string, password?: string): Promise<{ success: boolean; error?: string; role?: UserRole }> => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password: password || ''
@@ -143,7 +143,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (!profile) {
         profile = await recoverProfile(data.user.id, email);
       }
-      return { success: true };
+      return { success: true, role: profile?.role as UserRole || 'USER' };
     }
     return { success: false, error: 'Authentication failed.' };
   };

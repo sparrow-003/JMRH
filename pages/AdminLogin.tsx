@@ -26,8 +26,7 @@ const AdminLogin: React.FC = () => {
     const result = await login(email, password);
 
     if (result.success) {
-      // Re-fetch context to ensure role is updated
-      if (role === 'ADMIN') {
+      if (result.role === 'ADMIN') {
         setTimeout(() => {
           navigate('/system/control-panel/dashboard');
         }, 500);
@@ -72,7 +71,16 @@ const AdminLogin: React.FC = () => {
               />
             </div>
 
-            {error && <p className="text-red-500 text-[10px] font-bold text-center uppercase tracking-widest bg-red-50 py-3 rounded-xl">{error}</p>}
+            {error && (
+              <div className="space-y-4">
+                <p className="text-red-500 text-[10px] font-bold text-center uppercase tracking-widest bg-red-50 py-3 rounded-xl">{error}</p>
+                {error.toLowerCase().includes('credentials') && (
+                  <p className="text-[9px] text-slate-400 text-center italic leading-relaxed">
+                    Note: If you haven't registered this email in the scholar portal yet, please <a href="/login" className="text-primary font-bold underline">Register Here</a> first, then run the SQL elevation script.
+                  </p>
+                )}
+              </div>
+            )}
 
             <button type="submit" disabled={loading} className="btn-premium w-full flex items-center justify-center gap-3">
               {loading ? 'Validating...' : 'Access Dashboard'} <ChevronRight size={16} />
