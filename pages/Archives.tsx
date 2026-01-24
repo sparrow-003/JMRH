@@ -190,8 +190,8 @@ const Archives: React.FC = () => {
                   key={year}
                   onClick={() => setSelectedYear(year)}
                   className={`px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-500 ${selectedYear === year
-                      ? 'bg-primary text-white shadow-xl scale-105'
-                      : 'bg-transparent text-slate-400 hover:text-primary hover:bg-bg'
+                    ? 'bg-primary text-white shadow-xl scale-105'
+                    : 'bg-transparent text-slate-400 hover:text-primary hover:bg-bg'
                     }`}
                 >
                   {year === 'All' ? 'Universal Archive' : year}
@@ -335,7 +335,7 @@ const Archives: React.FC = () => {
 
                           <div className="flex flex-col justify-center items-end shrink-0">
                             <button
-                              onClick={() => handleDownload(article.pdfUrl, article.visibility)}
+                              onClick={() => handleDownload(article)}
                               className="btn-premium flex items-center gap-3"
                             >
                               <Download size={14} /> Download PDF
