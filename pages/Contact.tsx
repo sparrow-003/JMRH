@@ -22,7 +22,7 @@ const Contact: React.FC = () => {
                 { label: "Submissions", email: CONTACT_EMAILS.SUBMISSION, icon: <MessageSquare size={24} /> },
                 { label: "Reviewer Board", email: CONTACT_EMAILS.REVIEW, icon: <ShieldCheck size={24} /> },
                 { label: "Office Support", email: CONTACT_EMAILS.GENERAL, icon: <Mail size={24} /> }
-              ].map((item, i) => (
+              ].map((item: { label: string; email: string; icon: React.ReactNode }, i: number) => (
                 <div key={i} className="p-10 bg-white rounded-[3rem] border border-accent/10 space-y-6 group hover:bg-primary transition-all duration-500">
                   <div className="w-14 h-14 bg-bg text-accent rounded-2xl flex items-center justify-center border border-accent/10 group-hover:bg-white transition-colors">
                     {item.icon}

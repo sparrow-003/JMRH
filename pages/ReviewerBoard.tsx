@@ -16,7 +16,7 @@ const ReviewerBoard: React.FC = () => {
         {/* Double Blind Policy */}
         <section className="bg-primary text-white p-12 md:p-20 rounded-[4rem] flex flex-col md:flex-row gap-12 items-center relative overflow-hidden">
           <div className="absolute top-0 right-0 p-20 opacity-5">
-             <EyeOff size={200} />
+            <EyeOff size={200} />
           </div>
           <div className="bg-white/10 p-8 rounded-full flex-shrink-0">
             <EyeOff size={48} className="text-accent" />
@@ -42,10 +42,10 @@ const ReviewerBoard: React.FC = () => {
                 "Vetting of citations and plagiarism check compliance.",
                 "Declaration of any potential conflict of interest immediately.",
                 "Adherence to the monthly review timeline (3–4 weeks)."
-              ].map((text, i) => (
+              ].map((text: string, i: number) => (
                 <li key={i} className="flex items-start gap-4 text-slate-600 text-sm font-light">
-                   <div className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-accent" />
-                   {text}
+                  <div className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-accent" />
+                  {text}
                 </li>
               ))}
             </ul>

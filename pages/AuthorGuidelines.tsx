@@ -40,7 +40,7 @@ const AuthorGuidelines: React.FC = () => {
                   { label: "Font Style", value: "Times New Roman, 12-point" },
                   { label: "Line Spacing", value: "Double-spaced" },
                   { label: "References", value: "APA 7th Edition Style" }
-                ].map((item, i) => (
+                ].map((item: { label: string; value: string }, i: number) => (
                   <div key={i} className="flex justify-between items-center py-4 border-b border-accent/10">
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.label}</span>
                     <span className="text-sm font-medium text-primary">{item.value}</span>
@@ -64,7 +64,7 @@ const AuthorGuidelines: React.FC = () => {
                   "Results & Discussion",
                   "Conclusion & Recommendations",
                   "References (APA style)"
-                ].map((item, i) => (
+                ].map((item: string, i: number) => (
                   <div key={i} className="flex items-center gap-4 text-slate-700">
                     <CheckCircle2 size={14} className="text-accent shrink-0" />
                     <span className="font-light text-sm">{item}</span>

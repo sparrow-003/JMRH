@@ -134,7 +134,7 @@ const Home: React.FC = () => {
             </div>
             <div className="bg-white p-8 md:p-12">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-12">
-                {JOURNAL_PARTICULARS.map((item, idx) => (
+                {JOURNAL_PARTICULARS.map((item: any, idx: number) => (
                   <div key={idx} className="group">
                     <p className="text-[0.65rem] font-bold text-accent uppercase tracking-widest mb-2 group-hover:text-primary transition-colors">{item.label}</p>
                     <p className="text-lg font-serif text-primary italic border-l-2 border-transparent group-hover:border-accent/30 pl-0 group-hover:pl-4 transition-all duration-300">{item.value}</p>

@@ -80,18 +80,18 @@ const SubmitPaper: React.FC = () => {
                   <div className="space-y-8">
                     <div>
                       <label className={labelClass}>Manuscript Title *</label>
-                      <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} className={inputClass} placeholder="Enter technical title..." />
+                      <input type="text" required value={title} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)} className={inputClass} placeholder="Enter technical title..." />
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div>
                         <label className={labelClass}>Discipline</label>
-                        <select className={inputClass} value={discipline} onChange={(e) => setDiscipline(e.target.value)}>
-                          {PHD_COURSES_INDIA.map(d => <option key={d} value={d}>{d}</option>)}
+                        <select className={inputClass} value={discipline} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setDiscipline(e.target.value)}>
+                          {PHD_COURSES_INDIA.map((d: string) => <option key={d} value={d}>{d}</option>)}
                         </select>
                       </div>
                       <div>
                         <label className={labelClass}>Abstract Preview</label>
-                        <textarea className={inputClass} placeholder="Short technical summary..." rows={3} value={abstract} onChange={(e) => setAbstract(e.target.value)} />
+                        <textarea className={inputClass} placeholder="Short technical summary..." rows={3} value={abstract} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setAbstract(e.target.value)} />
                       </div>
                     </div>
                   </div>

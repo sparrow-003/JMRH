@@ -52,7 +52,7 @@ const AdminDashboard: React.FC = () => {
     try {
       const { data: userData } = await supabase.from('profiles').select('*').order('created_at', { ascending: false });
       if (userData) {
-        setUsers(userData.map(u => ({
+        setUsers(userData.map((u: any) => ({
           id: u.id,
           firstName: u.first_name,
           lastName: u.last_name,
@@ -95,13 +95,13 @@ const AdminDashboard: React.FC = () => {
 
   const handleUpdateManuscriptStatus = async (id: string, status: Manuscript['status']) => {
     const { error } = await supabase.from('manuscripts').update({ status }).eq('id', id);
-    if (!error) fetchAllData();
+    if (!error) await fetchAllData();
   };
 
   const handleDeleteManuscript = async (id: string) => {
     if (!confirm("Caution: This will permanently expunge this scholarly record. Proceed?")) return;
     const { error } = await supabase.from('manuscripts').delete().eq('id', id);
-    if (!error) fetchAllData();
+    if (!error) await fetchAllData();
   };
 
   const applyUserUpdate = async () => {
@@ -125,7 +125,7 @@ const AdminDashboard: React.FC = () => {
   };
 
   const filteredManuscripts = useMemo(() => {
-    return manuscripts.filter(m => {
+    return manuscripts.filter((m: Manuscript) => {
       const searchLower = searchTerm.toLowerCase();
       const authorName = `${m.author_profile?.first_name || ''} ${m.author_profile?.last_name || ''}`.toLowerCase();
       const titleLower = (m.title || '').toLowerCase();
@@ -136,7 +136,7 @@ const AdminDashboard: React.FC = () => {
   }, [manuscripts, searchTerm, filterStatus]);
 
   const filteredUsers = useMemo(() => {
-    return users.filter(u => {
+    return users.filter((u: UserProfile) => {
       const searchLower = userSearchTerm.toLowerCase();
       const fullName = `${u.firstName} ${u.lastName}`.toLowerCase();
       return fullName.includes(searchLower) || u.email.toLowerCase().includes(searchLower);
@@ -179,7 +179,7 @@ const AdminDashboard: React.FC = () => {
               { id: 'submissions', label: 'Repository', icon: <BookOpen size={14} /> },
               { id: 'users', label: 'Scholars', icon: <Users size={14} /> },
               { id: 'analytics', label: 'Intelligence', icon: <Activity size={14} /> }
-            ].map((tab) => (
+            ].map((tab: any) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
@@ -203,7 +203,7 @@ const AdminDashboard: React.FC = () => {
           <div className="h-10 w-px bg-slate-100 mx-2 self-center"></div>
           <div className="flex items-center gap-4 px-6 py-4 bg-accent/5 border border-accent/10 rounded-2xl">
             <Zap size={14} className="text-accent" />
-            <span className="text-[10px] font-bold text-accent uppercase tracking-widest">Priority Vetting Queue: {manuscripts.filter(m => m.status === 'SUBMITTED').length}</span>
+            <span className="text-[10px] font-bold text-accent uppercase tracking-widest">Priority Vetting Queue: {manuscripts.filter((m: Manuscript) => m.status === 'SUBMITTED').length}</span>
           </div>
         </div>
 
@@ -216,7 +216,7 @@ const AdminDashboard: React.FC = () => {
                 { label: 'Active Manuscripts', val: manuscripts.length, icon: <FileText />, color: 'text-amber-500', bg: 'bg-amber-50' },
                 { label: 'Downloads Logged', val: downloads.length, icon: <Download />, color: 'text-emerald-500', bg: 'bg-emerald-50' },
                 { label: 'System Visibility', val: logs.length, icon: <Globe />, color: 'text-indigo-500', bg: 'bg-indigo-50' }
-              ].map((stat, i) => (
+              ].map((stat: any, i: number) => (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
                   key={i} className="bg-white p-10 rounded-[3.5rem] border border-slate-100 shadow-sm relative group overflow-hidden"
@@ -273,7 +273,7 @@ const AdminDashboard: React.FC = () => {
                   </span>
                 </div>
                 <div className="space-y-6">
-                  {logs.slice(0, 5).map((log, i) => (
+                  {logs.slice(0, 5).map((log: VisitLog, i: number) => (
                     <div key={log.id} className="flex items-center justify-between py-4 border-b border-slate-50 last:border-0 transition-all hover:pl-2">
                       <div className="flex items-center gap-4">
                         <div className="w-2 h-2 rounded-full bg-slate-200"></div>
@@ -301,12 +301,12 @@ const AdminDashboard: React.FC = () => {
                   <input
                     type="text" placeholder="Search Repository Identity or Title..."
                     className="w-full pl-16 pr-8 py-5 bg-bg border-none rounded-3xl text-sm focus:ring-2 focus:ring-accent/10 transition-all"
-                    value={searchTerm} onChange={e => setSearchTerm(e.target.value)}
+                    value={searchTerm} onChange={(e: any) => setSearchTerm(e.target.value)}
                   />
                 </div>
                 <div className="flex items-center gap-4">
                   <select
-                    value={filterStatus} onChange={e => setFilterStatus(e.target.value)}
+                    value={filterStatus} onChange={(e: any) => setFilterStatus(e.target.value)}
                     className="px-8 py-5 bg-bg rounded-3xl text-[10px] font-bold uppercase tracking-widest text-slate-500 border-none appearance-none cursor-pointer hover:bg-slate-100 transition-all"
                   >
                     <option value="all">Universal Pool</option>
@@ -329,7 +329,7 @@ const AdminDashboard: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-50">
-                    {filteredManuscripts.map((m) => (
+                    {filteredManuscripts.map((m: Manuscript) => (
                       <tr key={m.id} className="group hover:bg-bg/40 transition-all duration-300">
                         <td className="py-10 px-4 max-w-lg">
                           <p className="text-lg font-serif text-primary font-medium leading-snug group-hover:text-accent transition-colors">{m.title}</p>
@@ -391,13 +391,13 @@ const AdminDashboard: React.FC = () => {
                   <input
                     type="text" placeholder="Identity Search (Name, Email)..."
                     className="w-full pl-16 pr-8 py-5 bg-bg border-none rounded-3xl text-sm focus:ring-2 focus:ring-accent/10 transition-all"
-                    value={userSearchTerm} onChange={e => setUserSearchTerm(e.target.value)}
+                    value={userSearchTerm} onChange={(e: any) => setUserSearchTerm(e.target.value)}
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                {filteredUsers.map(u => (
+                {filteredUsers.map((u: UserProfile) => (
                   <div key={u.id} className="p-8 bg-bg rounded-[3rem] border border-transparent hover:border-accent/10 hover:bg-white hover:shadow-2xl transition-all duration-500 group">
                     <div className="flex justify-between items-start mb-6">
                       <div className="w-16 h-16 rounded-[2rem] bg-white flex items-center justify-center text-lg font-bold text-primary shadow-sm border border-slate-50 group-hover:bg-primary group-hover:text-white transition-all">
@@ -447,7 +447,7 @@ const AdminDashboard: React.FC = () => {
                   <span className="px-4 py-1.5 bg-bg rounded-2xl text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400 border border-slate-50">Last 100 Syncs</span>
                 </div>
                 <div className="space-y-8 max-h-[600px] overflow-y-auto pr-4 custom-scrollbar">
-                  {logs.map(log => (
+                  {logs.map((log: VisitLog) => (
                     <div key={log.id} className="flex justify-between items-center group">
                       <div className="flex items-center gap-6">
                         <div className="w-10 h-10 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-300 group-hover:bg-primary group-hover:text-white transition-all">
@@ -474,7 +474,7 @@ const AdminDashboard: React.FC = () => {
                   </div>
                 </div>
                 <div className="space-y-8 max-h-[600px] overflow-y-auto pr-4 custom-scrollbar">
-                  {downloads.map(d => (
+                  {downloads.map((d: DownloadLog) => (
                     <div key={d.id} className="p-6 bg-bg/40 rounded-3xl border border-transparent hover:border-accent/10 hover:bg-white transition-all group">
                       <div className="flex justify-between items-start mb-4">
                         <div className="p-3 bg-white rounded-2xl shadow-sm text-accent group-hover:bg-primary group-hover:text-white transition-all">

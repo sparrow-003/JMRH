@@ -102,14 +102,14 @@ const Login: React.FC = () => {
                   <label className={labelClass}>Email</label>
                   <div className="relative">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={18} />
-                    <input type="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} className={inputClass} placeholder="scholar@university.ac.in" required />
+                    <input type="email" value={formData.email} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })} className={inputClass} placeholder="scholar@university.ac.in" required />
                   </div>
                 </div>
                 <div>
                   <label className={labelClass}>Password</label>
                   <div className="relative">
                     <Key className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={18} />
-                    <input type="password" value={formData.password} onChange={e => setFormData({ ...formData, password: e.target.value })} className={inputClass} placeholder="••••••••" required />
+                    <input type="password" value={formData.password} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, password: e.target.value })} className={inputClass} placeholder="••••••••" required />
                   </div>
                 </div>
                 {error && <p className="text-red-500 text-[10px] font-bold text-center uppercase tracking-widest px-4 py-3 bg-red-50 rounded-xl">{error}</p>}
@@ -130,20 +130,20 @@ const Login: React.FC = () => {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className={labelClass}>First Name</label>
-                        <input type="text" value={formData.firstName} onChange={e => setFormData({ ...formData, firstName: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} placeholder="e.g. Rahul" required />
+                        <input type="text" value={formData.firstName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, firstName: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} placeholder="e.g. Rahul" required />
                       </div>
                       <div>
                         <label className={labelClass}>Last Name</label>
-                        <input type="text" value={formData.lastName} onChange={e => setFormData({ ...formData, lastName: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} placeholder="e.g. Kumar" required />
+                        <input type="text" value={formData.lastName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, lastName: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} placeholder="e.g. Kumar" required />
                       </div>
                     </div>
                     <div>
                       <label className={labelClass}>Institution Email</label>
-                      <input type="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} placeholder="scholar@university.edu" required />
+                      <input type="email" value={formData.email} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} placeholder="scholar@university.edu" required />
                     </div>
                     <div>
                       <label className={labelClass}>Create Password</label>
-                      <input type="password" value={formData.password} onChange={e => setFormData({ ...formData, password: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} placeholder="Minimum 6 characters" required />
+                      <input type="password" value={formData.password} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, password: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} placeholder="Minimum 6 characters" required />
                     </div>
                     <button type="button" onClick={() => setStep(2)} className="btn-premium w-full">Next: Academic Profile</button>
                   </div>
@@ -152,22 +152,22 @@ const Login: React.FC = () => {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className={labelClass}>City</label>
-                        <input type="text" value={formData.city} onChange={e => setFormData({ ...formData, city: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} required />
+                        <input type="text" value={formData.city} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, city: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} required />
                       </div>
                       <div>
                         <label className={labelClass}>Pincode</label>
-                        <input type="text" value={formData.pincode} onChange={e => setFormData({ ...formData, pincode: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} required />
+                        <input type="text" value={formData.pincode} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, pincode: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} required />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className={labelClass}>Age</label>
-                        <input type="number" value={formData.age} onChange={e => setFormData({ ...formData, age: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} required />
+                        <input type="number" value={formData.age} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, age: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} required />
                       </div>
                       <div>
                         <label className={labelClass}>PhD Status</label>
-                        <select value={formData.phdStatus} onChange={e => setFormData({ ...formData, phdStatus: e.target.value })} className={selectClass}>
+                        <select value={formData.phdStatus} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFormData({ ...formData, phdStatus: e.target.value })} className={selectClass}>
                           <option value="Pursuing">Pursuing PhD</option>
                           <option value="Yes">PhD Awarded</option>
                           <option value="No">Non-PhD Scholar</option>
@@ -180,16 +180,16 @@ const Login: React.FC = () => {
                         <label className={labelClass}>University / Institution</label>
                         <select
                           value={formData.institutionName}
-                          onChange={e => setFormData({ ...formData, institutionName: e.target.value })}
+                          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFormData({ ...formData, institutionName: e.target.value })}
                           className={selectClass}
                           required
                         >
                           <option value="">Select Indian University</option>
-                          {TOP_INDIAN_UNIVERSITIES.map(u => <option key={u} value={u}>{u}</option>)}
+                          {TOP_INDIAN_UNIVERSITIES.map((u: string) => <option key={u} value={u}>{u}</option>)}
                         </select>
                         {formData.institutionName === 'Other' && (
                           <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mt-4">
-                            <input type="text" placeholder="Type University Name..." value={formData.customInstitution} onChange={e => setFormData({ ...formData, customInstitution: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} required />
+                            <input type="text" placeholder="Type University Name..." value={formData.customInstitution} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, customInstitution: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} required />
                           </motion.div>
                         )}
                       </div>
@@ -198,16 +198,16 @@ const Login: React.FC = () => {
                         <label className={labelClass}>PhD Course / Research Discipline</label>
                         <select
                           value={formData.department}
-                          onChange={e => setFormData({ ...formData, department: e.target.value })}
+                          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFormData({ ...formData, department: e.target.value })}
                           className={selectClass}
                           required
                         >
                           <option value="">Select PhD Discipline</option>
-                          {PHD_COURSES_INDIA.map(course => <option key={course} value={course}>{course}</option>)}
+                          {PHD_COURSES_INDIA.map((course: string) => <option key={course} value={course}>{course}</option>)}
                         </select>
                         {formData.department === 'Other' && (
                           <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mt-4">
-                            <input type="text" placeholder="Type Discipline Name..." value={formData.customDepartment} onChange={e => setFormData({ ...formData, customDepartment: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} required />
+                            <input type="text" placeholder="Type Discipline Name..." value={formData.customDepartment} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, customDepartment: e.target.value })} className={inputClass.replace('pl-12', 'pl-6')} required />
                           </motion.div>
                         )}
                       </div>

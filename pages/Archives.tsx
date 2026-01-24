@@ -87,8 +87,9 @@ const Archives: React.FC = () => {
 
   // Derive available years from data
   const availableYears = useMemo(() => {
-    const years = archives.map(i => i.year.toString());
-    return ['All', ...Array.from(new Set(years))].sort((a, b) => b.localeCompare(a));
+    const yearStrings = archives.map((i: Issue) => i.year.toString());
+    const uniqueYears: string[] = Array.from(new Set(yearStrings));
+    return ['All', ...uniqueYears].sort((a: string, b: string) => b.localeCompare(a));
   }, [archives]);
 
   // Apply filtering and internal article sorting
@@ -97,13 +98,13 @@ const Archives: React.FC = () => {
 
     // 1. Filter by year
     if (selectedYear !== 'All') {
-      result = archives.filter(issue => issue.year.toString() === selectedYear);
+      result = archives.filter((issue: Issue) => issue.year.toString() === selectedYear);
     }
 
     // 2. Sort articles within each issue
-    return result.map(issue => ({
+    return result.map((issue: Issue) => ({
       ...issue,
-      articles: [...issue.articles].sort((a, b) => {
+      articles: [...issue.articles].sort((a: Article, b: Article) => {
         let comparison = 0;
         if (sortBy === 'title') {
           comparison = a.title.localeCompare(b.title);
@@ -120,7 +121,7 @@ const Archives: React.FC = () => {
   const handleSummarize = async (article: Article) => {
     if (loadingSummaries[article.id] || summaries[article.id]) return;
 
-    setLoadingSummaries(prev => ({ ...prev, [article.id]: true }));
+    setLoadingSummaries((prev: Record<string, boolean>) => ({ ...prev, [article.id]: true }));
 
     // Specifically request a 2-sentence technical summary
     const prompt = `
@@ -132,8 +133,8 @@ const Archives: React.FC = () => {
     `;
 
     const summary = await askAssistant(prompt);
-    setSummaries(prev => ({ ...prev, [article.id]: summary || "Scholarly analysis temporarily unavailable." }));
-    setLoadingSummaries(prev => ({ ...prev, [article.id]: false }));
+    setSummaries((prev: Record<string, string>) => ({ ...prev, [article.id]: summary || "Scholarly analysis temporarily unavailable." }));
+    setLoadingSummaries((prev: Record<string, boolean>) => ({ ...prev, [article.id]: false }));
   };
 
   const handleDownload = async (article: Article) => {
@@ -162,7 +163,7 @@ const Archives: React.FC = () => {
     }
   };
 
-  const toggleSortOrder = () => setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
+  const toggleSortOrder = () => setSortOrder((prev: SortOrder) => prev === 'asc' ? 'desc' : 'asc');
 
   return (
     <div className="py-40 bg-bg min-h-screen">
@@ -185,7 +186,7 @@ const Archives: React.FC = () => {
               Chronological Filter
             </div>
             <div className="flex flex-wrap justify-center gap-3 p-2 bg-white rounded-full border border-accent/10 shadow-sm max-w-full overflow-x-auto no-scrollbar">
-              {availableYears.map((year) => (
+              {availableYears.map((year: string) => (
                 <button
                   key={year}
                   onClick={() => setSelectedYear(year)}
@@ -211,7 +212,7 @@ const Archives: React.FC = () => {
                 { id: 'date', label: 'Date', icon: <Calendar size={12} /> },
                 { id: 'title', label: 'Title', icon: <FileText size={12} /> },
                 { id: 'author', label: 'Author', icon: <User size={12} /> },
-              ].map((option) => (
+              ].map((option: any) => (
                 <button
                   key={option.id}
                   onClick={() => setSortBy(option.id as SortField)}

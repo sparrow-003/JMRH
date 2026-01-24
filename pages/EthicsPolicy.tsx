@@ -41,7 +41,7 @@ const EthicsPolicy: React.FC = () => {
                 { title: "Authors", desc: "Declaration of originality and acknowledgement of all sources.", icon: <UserCheck size={18} /> },
                 { title: "Reviewers", desc: "Confidentiality, objectivity, and timely technical assessment.", icon: <Scale size={18} /> },
                 { title: "Editors", desc: "Impartiality, academic integrity, and quality governance.", icon: <BookOpen size={18} /> }
-              ].map((item, i) => (
+              ].map((item: { title: string; desc: string; icon: React.ReactNode }, i: number) => (
                 <div key={i} className="flex gap-6 items-start">
                   <div className="w-10 h-10 bg-bg rounded-xl flex items-center justify-center text-accent shrink-0 border border-accent/10">
                     {item.icon}

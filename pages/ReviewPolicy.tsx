@@ -38,10 +38,10 @@ const ReviewPolicy: React.FC = () => {
         {/* Timeline Box */}
         <section className="bg-primary text-white p-12 rounded-[4rem] flex flex-col md:flex-row items-center gap-10 shadow-2xl relative overflow-hidden">
           <div className="absolute bottom-0 right-0 p-10 opacity-5">
-             <Clock size={200} />
+            <Clock size={200} />
           </div>
           <div className="w-24 h-24 bg-accent rounded-[2.5rem] flex items-center justify-center flex-shrink-0 shadow-lg relative z-10">
-             <Clock size={40} className="text-white" />
+            <Clock size={40} className="text-white" />
           </div>
           <div className="space-y-4 relative z-10">
             <h3 className="text-3xl font-serif italic">Decision Timeline</h3>
@@ -54,10 +54,10 @@ const ReviewPolicy: React.FC = () => {
         {/* Workflow Steps */}
         <section className="space-y-8">
           <div className="grid grid-cols-1 gap-6">
-            {steps.map((step, i) => (
+            {steps.map((step: { title: string; desc: string; icon: React.ReactElement }, i: number) => (
               <div key={i} className="flex gap-10 p-10 bg-white rounded-[3rem] border border-accent/10 hover:border-accent group transition-all duration-700">
                 <div className="w-16 h-16 bg-bg rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:text-white transition-all border border-accent/10">
-                  {React.cloneElement(step.icon as React.ReactElement<any>, { size: 28 })}
+                  {React.cloneElement(step.icon as any, { size: 28 })}
                 </div>
                 <div className="space-y-2">
                   <h4 className="text-2xl font-serif text-primary tracking-tight">{step.title}</h4>
@@ -70,19 +70,19 @@ const ReviewPolicy: React.FC = () => {
 
         {/* Appeal Section */}
         <section className="bg-white p-12 md:p-16 rounded-[4rem] border border-accent/10 space-y-12">
-           <h2 className="text-3xl font-serif flex items-center gap-4 italic text-primary">
-             <AlertCircle className="text-accent" size={32} /> Appeal & Revision Protocol
-           </h2>
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-             <div className="space-y-4">
-               <p className="font-bold text-accent uppercase text-[10px] tracking-widest">Revisions</p>
-               <p className="text-sm text-slate-500 font-light leading-relaxed italic">Authors provided with revision requests must submit point-by-point rebuttals within 1-2 weeks.</p>
-             </div>
-             <div className="space-y-4">
-               <p className="font-bold text-accent uppercase text-[10px] tracking-widest">Appeals</p>
-               <p className="text-sm text-slate-500 font-light leading-relaxed italic">Formal technical appeals can be logged with the Editor-in-Chief for procedural reconsideration.</p>
-             </div>
-           </div>
+          <h2 className="text-3xl font-serif flex items-center gap-4 italic text-primary">
+            <AlertCircle className="text-accent" size={32} /> Appeal & Revision Protocol
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+            <div className="space-y-4">
+              <p className="font-bold text-accent uppercase text-[10px] tracking-widest">Revisions</p>
+              <p className="text-sm text-slate-500 font-light leading-relaxed italic">Authors provided with revision requests must submit point-by-point rebuttals within 1-2 weeks.</p>
+            </div>
+            <div className="space-y-4">
+              <p className="font-bold text-accent uppercase text-[10px] tracking-widest">Appeals</p>
+              <p className="text-sm text-slate-500 font-light leading-relaxed italic">Formal technical appeals can be logged with the Editor-in-Chief for procedural reconsideration.</p>
+            </div>
+          </div>
         </section>
       </div>
     </div>
