@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext';
 import { Shield, ChevronRight } from 'lucide-react';
@@ -9,15 +9,28 @@ const AdminLogin: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, isAuthenticated, role } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated && role === 'ADMIN') {
+      navigate('/system/control-panel/dashboard', { replace: true });
+    }
+  }, [isAuthenticated, role, navigate]);
 
   const handleAdminLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const success = await login(email, password);
-    if (success) navigate('/system/control-panel/dashboard');
-    else setError('Unauthorized access attempt logged.');
+    setError('');
+    const result = await login(email, password);
+    if (result.success) {
+      // Small delay for smooth transition
+      setTimeout(() => {
+        navigate('/system/control-panel/dashboard');
+      }, 500);
+    } else {
+      setError('Unauthorized access attempt logged.');
+    }
     setLoading(false);
   };
 
@@ -35,16 +48,16 @@ const AdminLogin: React.FC = () => {
 
           <form onSubmit={handleAdminLogin} className="space-y-6">
             <div className="space-y-4">
-              <input 
-                type="email" 
+              <input
+                type="email"
                 placeholder="Administrator ID"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 className="w-full px-6 py-4 bg-bg border border-slate-100 rounded-2xl text-primary text-sm focus:outline-none focus:ring-2 focus:ring-accent/20"
                 required
               />
-              <input 
-                type="password" 
+              <input
+                type="password"
                 placeholder="Secure Key"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
