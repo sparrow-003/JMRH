@@ -46,9 +46,8 @@ const AdminLogin: React.FC = () => {
       }
     }
     setLoading(true)
-  const { data, error } = await (supabase!.auth.signInWithPassword({ email, password }) as any)
-  const user = data?.user
-  const session = data?.session
+  // Use a flexible call to avoid TS typing issues across Supabase versions
+  const { user, session, error } = await ((supabase as any).auth.signIn({ email, password }))
     setLoading(false)
     if (error) { setError(error.message); return }
     // Ensure admin role exists
