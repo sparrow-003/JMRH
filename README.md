@@ -114,3 +114,29 @@ The project includes a `vercel.json` configuration that handles **SPA Routing (R
 <p align="center">
   <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Graduation%20Cap.png" alt="Graduation Cap" width="100" />
 </p>
+- Admin Access and Supabase Setup
+- Admin login uses default dev credentials for quick testing:
+  - ID: jmeh@123
+  - Password: jmrh@123
+- For production, replace with a secure authentication flow (e.g., Supabase auth with roles).
+- Supabase integration: configure SUPABASE URL and anon key in admin/login.html via data-supabase-url and data-supabase-anon-key, and ensure the CDN script for supabase-js loads on the login page
+- User authentication and paper submission are implemented using Supabase Auth and Storage.
+- Users can register, login, submit papers, and view/download papers in the Papers page.
+- Admins can view archives and upload papers via the Archives page.
+- Admin login uses default dev credentials for quick testing:
+  - ID: jmeh@123
+  - Password: jmrh@123
+- For production, replace with a secure authentication flow (e.g., Supabase auth with roles).
+- Supabase integration: configure SUPABASE URL and anon key in admin/login.html via data-supabase-url and data-supabase-anon-key, and ensure the CDN script for supabase-js loads on the login page.
+- To test admin login, open /admin/login.html, login with defaults, then go to /admin/dashboard.html.
+
+Project setup notes
+- Ensure environment variables for Supabase URL/anon key are kept secret in production.
+- If you port this to a framework, create a proper ThemeProvider and a secure admin auth guard.
+- To test admin login, open /admin/login.html, login with defaults, then go to /admin/dashboard.html.
+- To test user features, open /user/register.html, sign up, login, and navigate to /user/submit-paper.html or /user/papers.html.
+
+Database schema notes
+- A documents table stores uploaded papers with fields: id, title, description, file_url, file_path, uploaded_by, uploaded_at, is_public.
+- A profiles table stores user profiles with fields: id, user_id, name, email, created_at.
+- Use Supabase to manage authentication (auth.users) and association with profiles via user_id.
