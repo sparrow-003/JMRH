@@ -1,17 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { supabase } from '../../utils/supabaseClient'
-
-const getDeviceId = (): string => {
-  const key = 'admin_device_id'
-  let id = localStorage.getItem(key)
-  if (!id) {
-    id = 'adm-' + Math.random().toString(36).slice(2)
-    localStorage.setItem(key, id)
-  }
-  return id
-}
+import { getSupabaseClient } from '../../utils/supabaseClient'
 
 const AdminLogin: React.FC = () => {
   const [email, setEmail] = useState<string>('admin@example.com')
@@ -23,47 +13,28 @@ const AdminLogin: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
-    // Dev-friendly fallback if Supabase not configured
-    if (!supabase) {
-      if (email === 'jmeh@123' && password === 'jmrh@123') {
-        const adminId = 'admin'
-        const deviceId = getDeviceId()
-        const expiresAt = Date.now() + 15 * 24 * 60 * 60 * 1000
-        const session = { adminId, deviceId, loginAt: new Date().toISOString(), expiresAt }
-        localStorage.setItem('admin_session', JSON.stringify(session))
-        // store per-admin devices in a simple map
-        const raw = localStorage.getItem('admin_sessions') || '{}'
-        const map = JSON.parse(raw)
-        map[adminId] = map[adminId] || { devices: [] }
-        const existing = map[adminId].devices.find((d: any) => d.deviceId === deviceId)
-        if (!existing) map[adminId].devices.push({ deviceId, loginAt: new Date().toISOString(), expiresAt })
-        localStorage.setItem('admin_sessions', JSON.stringify(map))
+    const sb = await getSupabaseClient()
+    if (sb && sb.auth && typeof sb.auth.signIn === 'function') {
+      try {
+        const res: any = await sb.auth.signIn({ email, password })
+        if (res?.error) {
+          setError(res.error.message)
+          return
+        }
+        localStorage.setItem('admin_session', JSON.stringify({ admin: true, email }))
         navigate('/admin/dashboard')
-        return
-      } else {
-        setError('Invalid credentials (dev-only).')
-        return
+      } catch (e: any) {
+        setError(e?.message ?? 'Login failed')
       }
+      return
     }
-    setLoading(true)
-  // Use a flexible call to avoid TS typing issues across Supabase versions
-  const { user, session, error } = await ((supabase as any).auth.signIn({ email, password }))
-    setLoading(false)
-    if (error) { setError(error.message); return }
-    // Ensure admin role exists
-    const adminId = user?.id ?? 'admin'
-    const deviceId = getDeviceId()
-    const expiresAt = Date.now() + 15 * 24 * 60 * 60 * 1000
-    const s = { adminId, deviceId, loginAt: new Date().toISOString(), expiresAt }
-    localStorage.setItem('admin_session', JSON.stringify(s))
-    // record in admin_sessions map
-    const raw = localStorage.getItem('admin_sessions') || '{}'
-    const map = JSON.parse(raw)
-    map[adminId] = map[adminId] || { devices: [] }
-    const existing = map[adminId].devices.find((d: any) => d.deviceId === deviceId)
-    if (!existing) map[adminId].devices.push({ deviceId, loginAt: new Date().toISOString(), expiresAt })
-    localStorage.setItem('admin_sessions', JSON.stringify(map))
-    navigate('/admin/dashboard')
+    // Fallback dev login if Supabase isn't configured
+    if (email === 'jmeh@123' && password === 'jmrh@123') {
+      localStorage.setItem('admin_session', JSON.stringify({ admin: true, email }))
+      navigate('/admin/dashboard')
+    } else {
+      setError('Invalid admin credentials (dev-only).')
+    }
   }
 
   return (
