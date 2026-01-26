@@ -14,13 +14,10 @@ const AdminLogin: React.FC = () => {
     e.preventDefault()
     setError('')
     const sb = await getSupabaseClient()
-    if (sb && sb.auth && typeof sb.auth.signIn === 'function') {
+    if (sb) {
       try {
         const res: any = await sb.auth.signIn({ email, password })
-        if (res?.error) {
-          setError(res.error.message)
-          return
-        }
+        if (res?.error) { setError(res.error.message); return }
         localStorage.setItem('admin_session', JSON.stringify({ admin: true, email }))
         navigate('/admin/dashboard')
       } catch (e: any) {
@@ -28,7 +25,7 @@ const AdminLogin: React.FC = () => {
       }
       return
     }
-    // Fallback dev login if Supabase isn't configured
+    // Dev fallback
     if (email === 'jmeh@123' && password === 'jmrh@123') {
       localStorage.setItem('admin_session', JSON.stringify({ admin: true, email }))
       navigate('/admin/dashboard')

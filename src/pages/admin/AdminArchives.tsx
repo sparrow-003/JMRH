@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
 
 type Doc = { id: string; title: string; description?: string; file_url?: string; uploaded_at?: string }
 
@@ -7,7 +6,7 @@ const AdminArchives: React.FC = () => {
   const [docs, setDocs] = useState<Doc[]>([])
   const [title, setTitle] = useState('')
   const [desc, setDesc] = useState('')
-  const [file, setFile] = useState<File | null>(null)
+  const [fileName, setFileName] = useState('')
 
   useEffect(() => {
     const stored = localStorage.getItem('docs')
@@ -16,10 +15,10 @@ const AdminArchives: React.FC = () => {
 
   const handleUpload = (e: React.FormEvent) => {
     e.preventDefault()
-    const blob = file ? file : new Blob(['demo'], { type: 'text/plain' })
+    const blob = new Blob([`Demo content for ${title || fileName || 'Untitled'}`], { type: 'text/plain' })
     const doc: Doc = {
       id: Date.now().toString(),
-      title: title || (file?.name ?? 'Untitled'),
+      title: title || (fileName || 'Untitled'),
       description: desc,
       file_url: URL.createObjectURL(blob),
       uploaded_at: new Date().toISOString()
@@ -29,7 +28,12 @@ const AdminArchives: React.FC = () => {
     localStorage.setItem('docs', JSON.stringify(next))
     setTitle('')
     setDesc('')
-    setFile(null)
+    setFileName('')
+  }
+
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0]
+    setFileName(f?.name ?? '')
   }
 
   return (
@@ -39,7 +43,7 @@ const AdminArchives: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
           <input className="border rounded px-3 py-2" placeholder="Title" value={title} onChange={e=>setTitle(e.target.value)} />
           <input className="border rounded px-3 py-2" placeholder="Description" value={desc} onChange={e=>setDesc(e.target.value)} />
-          <input className="border rounded px-3 py-2" type="file" onChange={e=>setFile(e.target.files?.[0] ?? null)} />
+          <input className="border rounded px-3 py-2" type="file" onChange={onFileChange} />
         </div>
         <div className="mt-3"><button className="btn">Upload Paper</button></div>
       </form>
