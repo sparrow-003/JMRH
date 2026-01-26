@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { useAuth } from '../utils/AuthContext'
+import { useAuth } from '../../utils/AuthContext'
 
 const UserLogin: React.FC = () => {
   const [email, setEmail] = useState('')
