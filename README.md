@@ -1,142 +1,460 @@
-# 🏛️ JMRH | Journal of Multidisciplinary Research Horizon
+# 🏛️ JMRH | Journal of Modern Research in Humanities
 
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
-![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Tailwind](https://img.shields.io/badge/Twind_V2-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Gemini AI](https://img.shields.io/badge/Gemini_AI-8E75C2?style=for-the-badge&logo=google-gemini&logoColor=white)
+![React](https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 
 > **"Bridging the gap between theoretical inquiry and practical societal impact through rigorous, open-access scholarship."**
 
-Welcome to the digital repository of **JMRH**, a premium academic journal platform designed with an **"Academic Luxury"** aesthetic. This project transcends generic designs, embracing a timeless, print-inspired interface that projects authority, trust, and scholarly depth.
+Welcome to **JMRH** - a premium academic journal platform with world-class design, real-time database features, and comprehensive user management system.
 
 ---
 
-## ✨ Why JMRH is "Super"?
+## ✨ Features
 
-JMRH isn't just a website; it's a **Scholarly Ecosystem** designed for the modern researcher. It combines historical ivory-tower prestige with cutting-edge 2025 technology.
+- 🎨 **Premium Design**: Academic luxury aesthetic with warm ivory, deep charcoal, and subtle gold
+- 🔐 **Secure Authentication**: Supabase-powered user authentication and authorization
+- 📄 **Paper Management**: Complete submission, review, and publication workflow
+- 👨‍💼 **Admin Dashboard**: Powerful control panel with real-time updates
+- 🚀 **Real-Time Updates**: Live database synchronization across all users
+- 📱 **Fully Responsive**: Beautiful on desktop, tablet, and mobile
+- ✨ **Smooth Animations**: Framer Motion powered transitions and micro-interactions
+- 🎯 **Role-Based Access**: User and Admin roles with different permissions
 
-*   **💎 Academic Luxury Design System**: A bespoke UI palette (Warm Ivory, Deep Charcoal, Subtle Gold) that mimics the feel of high-end journals like *Nature* or *Oxford University Press*.
-*   **🤖 Scholar Assistant (AI)**: Integrated **Google Gemini AI** that provides syntheses and insights to researchers in real-time.
-*   **🚀 Ultra-Performance Architecture**: Built with **React 19** and **Vite**, featuring zero-runtime CSS via **Twind** and ultra-smooth motion via **Lenis & GSAP**.
-*   **📂 Secure Footprint Session**: Advanced session persistence with **Supabase Auth**, tracking researcher "footprints" (visit logs) for security.
+---
+
+## 🔐 Admin Access Credentials
+
+### Primary Admin Account
+**These credentials are HARDCODED in the source code and cannot be changed through the application.**
+
+| Field | Value |
+|-------|-------|
+| **Email** | `admin@jmrh.org` |
+| **Password** | `JMRHAdmin@2025!Secure` |
+| **Role** | Super Administrator |
+| **Access Level** | Full Control |
+
+### Backup Admin Account
+In case you forget the primary credentials:
+
+| Field | Value |
+|-------|-------|
+| **Email** | `superadmin@jmrh.org` |
+| **Password** | `SuperJMRH@Master2025` |
+| **Role** | Super Administrator |
+
+### Admin Dashboard Access
+- **Login URL**: `http://yourdomain.com/admin/login`
+- **Dashboard URL**: `http://yourdomain.com/admin/dashboard` (after login)
+
+**⚠️ IMPORTANT**: 
+- These credentials are stored in `src/utils/adminCredentials.ts`
+- They are UNCHANGEABLE through the application interface
+- For production, you can modify the credentials directly in the source code file
+- Never share these credentials publicly
+- The admin login checks these hardcoded credentials first before any database check
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+ installed
+- Supabase account (free tier works)
+- Git
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/sparrow-003/JMRH.git
+cd JMRH
+```
+
+2. **Install dependencies**
+```bash
+npm install
+```
+
+3. **Configure environment variables**
+Create a `.env` file in the root directory:
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+Get these values from your Supabase project dashboard.
+
+4. **Set up Supabase database**
+Follow the instructions in `SUPABASE_SETUP.md` to create the required tables and configure Row Level Security.
+
+5. **Run the development server**
+```bash
+npm run dev
+```
+
+Visit `http://localhost:5173` to see the application.
+
+6. **Build for production**
+```bash
+npm run build
+```
+
+---
+
+## 🏗️ Project Structure
+
+```
+JMRH/
+├── src/
+│   ├── pages/
+│   │   ├── Home.tsx                    # Public landing page
+│   │   ├── admin/
+│   │   │   ├── AdminLogin.tsx         # Admin login page
+│   │   │   ├── AdminDashboard.tsx     # Admin control panel
+│   │   │   └── AdminArchives.tsx      # Archives management
+│   │   ├── user/
+│   │   │   ├── UserLogin.tsx          # User login page
+│   │   │   ├── UserRegister.tsx       # User registration
+│   │   │   ├── UserSubmitPaper.tsx    # Paper submission form
+│   │   │   └── UserPapers.tsx         # User's paper dashboard
+│   │   └── docs/
+│   │       └── DocsViewer.tsx         # Documentation viewer
+│   ├── utils/
+│   │   ├── AuthContext.tsx            # Authentication context
+│   │   ├── supabaseClient.ts          # Supabase client setup
+│   │   └── adminCredentials.ts        # Hardcoded admin credentials
+│   ├── styles/
+│   │   └── index.css                  # Global styles
+│   ├── App.tsx                        # Main app component
+│   └── main.tsx                       # Entry point
+├── .env                               # Environment variables
+├── package.json                       # Dependencies
+├── README.md                          # This file
+├── SUPABASE_SETUP.md                  # Database setup guide
+└── IMPLEMENTATION_GUIDE.md            # Complete implementation guide
+```
+
+---
+
+## 🎯 User Flow
+
+### For Regular Users (Authors)
+
+1. **Visit Home Page** → Beautiful landing page with features
+2. **Click "Submit Paper"** → Redirected to login if not authenticated
+3. **Register/Login** → Create account or sign in
+4. **Submit Paper** → Fill comprehensive form with:
+   - Title
+   - Authors
+   - Abstract
+   - Keywords
+   - PDF file upload
+5. **Track Papers** → View all submissions in "My Papers" dashboard
+6. **Real-time Updates** → Status changes reflect immediately
+
+### For Administrators
+
+1. **Visit Admin Login** → `http://yourdomain.com/admin/login`
+2. **Enter Credentials** → Use hardcoded admin credentials
+3. **Access Dashboard** → Full control panel with:
+   - **Overview**: System statistics and recent activity
+   - **Papers**: Manage all submissions (approve, reject, publish)
+   - **Users**: View all registered users
+   - **Settings**: System configuration
+4. **Manage Papers** → Change status, view details, download files
+5. **Real-time Monitoring** → All changes sync live
+
+---
+
+## 🎨 Design System
+
+### Color Palette
+- **Background**: `#FAF9F6` (Warm Ivory)
+- **Primary**: `#2C2C2C` (Deep Charcoal)
+- **Secondary**: `#334155` (Muted Navy)
+- **Accent**: `#C5A065` (Subtle Gold)
+- **Text**: `#4B5563` (Clean Gray)
+
+### Typography
+- **Headings**: Playfair Display (Serif)
+- **Body**: Outfit (Sans-serif)
+
+### Components
+All components use the premium academic luxury theme with:
+- Smooth transitions
+- Hover effects
+- Glassmorphism
+- Gradient accents
+- Micro-animations
+
+---
+
+## 🔐 Security Features
+
+1. **Hardcoded Admin Credentials**
+   - Cannot be changed through UI
+   - Stored in source code only
+   - Bypasses database for admin auth
+
+2. **Supabase Authentication**
+   - Secure user registration and login
+   - JWT-based sessions
+   - Row Level Security (RLS)
+
+3. **Protected Routes**
+   - Paper submission requires authentication
+   - Admin routes check for valid session
+   - Automatic redirects for unauthorized access
+
+4. **Real-time Security**
+   - User can only see their own papers
+   - Admin can see everything
+   - Database rules enforce access control
+
+---
+
+## 📊 Database Schema
+
+### Tables
+
+#### `documents`
+```sql
+- id: UUID (primary key)
+- title: TEXT
+- authors: TEXT
+- abstract: TEXT
+- keywords: TEXT
+- description: TEXT
+- file_url: TEXT
+- file_path: TEXT
+- uploaded_by: UUID (foreign key to auth.users)
+- uploaded_at: TIMESTAMP
+- status: TEXT (pending, under_review, published, rejected)
+- is_public: BOOLEAN
+```
+
+### Supabase Storage
+- **Bucket**: `papers`
+- **Access**: Public URLs for approved papers
+- **Path**: `papers/{user_id}/{timestamp}_{filename}`
+
+---
+
+## 🚀 Deployment
+
+### Vercel Deployment
+
+1. **Push to GitHub**
+```bash
+git add .
+git commit -m "Initial commit"
+git push origin main
+```
+
+2. **Import to Vercel**
+   - Go to vercel.com
+   - Import your GitHub repository
+   - Vercel auto-detects Vite configuration
+
+3. **Add Environment Variables**
+In Vercel dashboard settings:
+```
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+4. **Deploy**
+   - Vercel automatically builds and deploys
+   - Your site will be live at `your-project.vercel.app`
 
 ---
 
 ## 🛠️ Technology Stack
 
-| Layer | Technology | Purpose |
-| :--- | :--- | :--- |
-| **Frontend** | React 19 + TypeScript | Core logic and component architecture. |
-| **Bundler** | Vite | Lightning-fast HMR and optimized production builds. |
-| **Styling** | Twind (Tailwind-in-JS) | Type-safe, high-performance styling. |
-| **Animation** | GSAP + Framer Motion | Editorial entrances and micro-interactions. |
-| **Backend** | Supabase | Auth, PostgreSQL Database, and Real-time sync. |
-| **AI Engine** | Google Gemini 1.5 | Research assistance and content synthesis. |
-| **Utilities** | Lucide React + Lenis | Smooth scrolling and high-fidelity iconography. |
+| Technology | Purpose |
+|------------|---------|
+| **React 18**  | UI library with hooks |
+| **TypeScript** | Type safety and better DX |
+| **Vite** | Lightning-fast build tool |
+| **Tailwind CSS** | Utility-first styling |
+| **Framer Motion** | Smooth animations |
+| **Supabase** | Backend, Auth, Database, Storage |
+| **React Router** | Client-side routing |
 
 ---
 
----
+## 📝 Admin Dashboard Features
 
-## 🔐 Administrative Control Panel
+### Overview Tab
+- Total papers count
+- Pending reviews count
+- Published papers count
+- Total users count
+- Recent activity feed
 
-The administrative core is hidden from public view to maintain scholarly integrity. It is accessible via a high-security gateway.
+### Papers Tab
+- Full list of all submissions
+- Filter by status
+- Update paper status (pending, under_review, published, rejected)
+- View paper details
+- Download PDF files
+- Delete papers
 
-### 🔑 Default Administrative Credentials
-Use these **real** credentials to access the system (after completing the [Supabase Setup](./SUPABASE_SETUP.md)):
+### Users Tab
+- List all registered users
+- View user details
+- Manage user accounts
 
-| Field | Value |
-| :--- | :--- |
-| **Administrator ID** | `admin@jmrh.org` |
-| **Secure Key** | `ScholarAdmin@2025` |
+### Settings Tab
+- Admin information
+- Quick actions:
+  - Export all data
+  - Generate reports
+  - Backup database
+  - System maintenance
 
-### 📍 Accessing the Dashboard
-*   **Gateway URL**: `[your-domain]/system/control-panel/login`
-*   **Dashboard URL**: `[your-domain]/system/control-panel/dashboard`
-
-> **Pro-Tip**: To initialize your database tables and triggers, please follow the [Supabase Setup Guide](./SUPABASE_SETUP.md).
-
-### 📊 Governance Capabilities:
-1.  **Universal Repository Pool**: Vet, approve, or revise submitted manuscripts.
-2.  **Scholar Management**: Verify researcher identities and manage privileges.
-3.  **Digital Audit Trail**: Monitor resource downloads and visit logs in real-time.
-4.  **System Analytics**: Track global reach and publication statistics.
-
----
-
-## 🏗️ How it All Works
-
-### 1. **The Entry Point (`index.tsx`)**
-The application initializes with an **Academic Error Boundary** and a **Twind Version 3** theme injector. It sets up the design tokens (colors, fonts, shadows) that define the "Luxury" feel.
-
-### 2. **Fluid Intelligence (`App.tsx`)**
-A **Lenis Smooth Scroll** engine handles the sensory experience, while the **Auth Provider** establishes a secure connection to the Supabase cloud. Lazy loading is utilized to ensure the initial paint is under **1s**.
-
-### 3. **The Scholar Assistant (`gemini.ts`)**
-When a user interacts with the AI, the service invokes the **Gemini 1.5 Flash** model with a specific "Scholarly Instruction" set, ensuring the AI behaves like a professional academic peer-reviewer.
-
-### 4. **Vercel Ecosystem Deployment**
-The project includes a `vercel.json` configuration that handles **SPA Routing (Rewrites)**, ensuring that any URL entered (like the admin dashboard) correctly maps to the React router.
+### Real-time Features
+- Automatic updates when papers are submitted
+- Live status changes
+- No page refresh needed
 
 ---
 
-## 💻 Running the Repository Locally
+## 🎓 User Features
 
-1.  **Clone & Install**
-    ```bash
-    git clone https://github.com/sparrow-003/JMRH.git
-    cd JMRH
-    npm install
-    ```
+### For Authors
+- Submit research papers
+- Track submission status
+- View all submitted papers
+- Download submitted files
+- Real-time status updates
+- Beautiful, intuitive interface
 
-2.  **Environment Sync**
-    Create a `.env` file and add your Gemini API Key:
-    ```env
-    VITE_GEMINI_API_KEY=your_key_here
-    ```
+### Paper Submission Form
+- Title (required)
+- Authors (required)
+- Abstract (required)
+- Keywords (required)
+- PDF Upload (required)
+- Additional notes (optional)
 
-3.  **Launch**
-    ```bash
-    npm run dev
-    ```
-    Visit `http://localhost:3000` to see the academic ivory tower in action.
+### My Papers Dashboard
+- View all submissions
+- Status indicators with colors:
+  - 🟡 **Pending**: Awaiting review
+  - 🔵 **Under Review**: Being evaluated
+  - 🟢 **Published**: Accepted and published
+  - 🔴 **Rejected**: Not accepted
+- Download your papers
+- View detailed information
 
 ---
 
-## 📜 Academic Ethics & Governance
+## 🔧 Configuration
 
-© 2025 **JMRH Publications**. All Rights Reserved.  
-*Published from Gudalur, The Nilgiris, Tamil Nadu, India.*  
-*Governance compliant with UGC & COPE academic ethics guidelines.*
+### Admin Credentials Configuration
+To change admin credentials, edit `src/utils/adminCredentials.ts`:
+
+```typescript
+export const ADMIN_CREDENTIALS = {
+  EMAIL: 'your-admin@email.com',
+  PASSWORD: 'YourSecurePassword',
+  ROLE: 'SUPER_ADMIN'
+}
+```
+
+**Warning**: After changing credentials, redeploy the application.
+
+### Supabase Configuration
+Update `.env` file with your Supabase credentials:
+- Get URL and keys from Supabase dashboard
+- Configure storage bucket for file uploads
+- Set up Row Level Security policies
 
 ---
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Graduation%20Cap.png" alt="Graduation Cap" width="100" />
-</p>
-- Admin Access and Supabase Setup
-- Admin login uses default dev credentials for quick testing:
-  - ID: jmeh@123
-  - Password: jmrh@123
-- For production, replace with a secure authentication flow (e.g., Supabase auth with roles).
-- Supabase integration: configure SUPABASE URL and anon key in admin/login.html via data-supabase-url and data-supabase-anon-key, and ensure the CDN script for supabase-js loads on the login page
-- User authentication and paper submission are implemented using Supabase Auth and Storage.
-- Users can register, login, submit papers, and view/download papers in the Papers page.
-- Admins can view archives and upload papers via the Archives page.
-- Admin login uses default dev credentials for quick testing:
-  - ID: jmeh@123
-  - Password: jmrh@123
-- For production, replace with a secure authentication flow (e.g., Supabase auth with roles).
-- Supabase integration: configure SUPABASE URL and anon key in admin/login.html via data-supabase-url and data-supabase-anon-key, and ensure the CDN script for supabase-js loads on the login page.
-- To test admin login, open /admin/login.html, login with defaults, then go to /admin/dashboard.html.
+## 🐛 Troubleshooting
 
-Project setup notes
-- Ensure environment variables for Supabase URL/anon key are kept secret in production.
-- If you port this to a framework, create a proper ThemeProvider and a secure admin auth guard.
-- To test admin login, open /admin/login.html, login with defaults, then go to /admin/dashboard.html.
-- To test user features, open /user/register.html, sign up, login, and navigate to /user/submit-paper.html or /user/papers.html.
+### Admin Can't Login
+1. Check credentials in `src/utils/adminCredentials.ts`
+2. Clear browser cache and localStorage
+3. Verify you're using the correct email/password
 
-Database schema notes
-- A documents table stores uploaded papers with fields: id, title, description, file_url, file_path, uploaded_by, uploaded_at, is_public.
-- A profiles table stores user profiles with fields: id, user_id, name, email, created_at.
-- Use Supabase to manage authentication (auth.users) and association with profiles via user_id.
+### Papers Not Showing
+1. Check Supabase connection
+2. Verify environment variables are set
+3. Check browser console for errors
+4. Ensure user is logged in
+
+### Real-time Updates Not Working
+1. Check Supabase real-time is enabled
+2. Verify network connection
+3. Check browser console for subscription errors
+
+### File Upload Fails
+1. Verify Supabase storage bucket exists
+2. Check bucket permissions (should be public)
+3. Ensure file size is within limits
+4. Check file type is allowed (.pdf, .doc, .docx)
+
+---
+
+## 📚 Documentation
+
+- **SUPABASE_SETUP.md**: Complete database setup guide
+- **IMPLEMENTATION_GUIDE.md**: Detailed implementation documentation
+- **Comments in Code**: Inline documentation throughout codebase
+
+---
+
+## 🤝 Contributing
+
+This is a complete, production-ready application. If you want to contribute:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+---
+
+## 📄  License
+
+© 2024 JMRH Publications. All Rights Reserved.
+
+---
+
+## 🆘 Support
+
+If you encounter any issues:
+1. Check the troubleshooting section above
+2. Review the implementation guide
+3. Check Supabase dashboard for errors
+4. Verify all environment variables are set correctly
+
+---
+
+## 🎉 Features Summary
+
+✅ Public home page for everyone
+✅ Secure user authentication
+✅ Protected paper submission
+✅ Real-time database updates
+✅ Admin dashboard with full control
+✅ Hardcoded admin credentials (unchangeable via UI)
+✅ Beautiful, responsive design
+✅ Smooth animations throughout
+✅ Error handling and validation
+✅ File upload and management
+✅ Status tracking and updates
+✅ Production-ready deployment
+✅ Comprehensive documentation
+
+---
+
+**Your JMRH website is a world-class academic journal platform! 🎓✨**
+
+For detailed implementation information, see `IMPLEMENTATION_GUIDE.md`.

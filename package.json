@@ -15,7 +15,8 @@
     "@types/react-dom": "^18.0.11",
     "typescript": "^5.1.6",
     "framer-motion": "^7.0.0",
-    "gsap": "^3.12.5"
+    "gsap": "^3.12.5",
+    "@supabase/supabase-js": "^2.39.0"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.1",

@@ -12,3 +12,13 @@ interface Process {
 
 declare module 'twind/colors';
 declare module 'twind/shim';
+
+// Vite environment variables
+interface ImportMetaEnv {
+  readonly VITE_SUPABASE_URL: string
+  readonly VITE_SUPABASE_ANON_KEY: string
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv
+}
