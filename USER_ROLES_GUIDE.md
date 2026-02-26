@@ -64,3 +64,4 @@ Researchers can submit their original inquiry and track the progress of their ac
 
 ### 🚨 Security Note
 In this current build, the system uses **LocalStorage Persistence**. Any data created (new users, assigned papers) will remain on your machine during the session. If you wish to reset to mock defaults, clear your browser's local storage for this site.
+<!-- Updated for git commit -->

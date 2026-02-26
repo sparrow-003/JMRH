@@ -28,3 +28,4 @@ export const useAuth = () => {
 
     return { user, loading, signOut };
 };
+// Updated for git commit

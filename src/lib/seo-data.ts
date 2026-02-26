@@ -109,3 +109,4 @@ export const pageSEO = {
     keywords: COMMON_KEYWORDS + ", submit paper, manuscript submission, online submission, publish research, call for papers",
   },
 };
+// Updated for git commit

@@ -28,3 +28,4 @@ export function getAdminRole(email: string): string {
     }
     return 'NONE'
 }
+// Updated for git commit

@@ -132,3 +132,4 @@ const EditorialBoardSection = memo(() => {
 });
 
 export default EditorialBoardSection;
+// Updated for git commit

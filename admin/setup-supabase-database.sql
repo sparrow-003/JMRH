@@ -23,3 +23,4 @@ CREATE TABLE IF NOT EXISTS documents (
 );
 
 CREATE INDEX IF NOT EXISTS idx_documents_uploaded_at ON documents (uploaded_at);
+-- Updated for git commit

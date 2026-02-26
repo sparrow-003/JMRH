@@ -17,3 +17,4 @@ export function useIsMobile() {
 
   return !!isMobile;
 }
+// Updated for git commit

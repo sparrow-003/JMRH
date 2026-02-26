@@ -312,3 +312,4 @@ export const useJMRH = () => {
     if (!context) throw new Error('useJMRH must be used within a JMRHProvider');
     return context;
 };
+// Updated for git commit

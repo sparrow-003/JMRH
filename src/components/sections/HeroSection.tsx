@@ -106,3 +106,4 @@ const HeroSection = memo(() => {
 });
 
 export default HeroSection;
+// Updated for git commit

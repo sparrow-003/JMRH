@@ -48,4 +48,4 @@ ON storage.objects FOR DELETE TO authenticated
 USING (
     bucket_id = 'papers' AND
     auth.uid()::text = (storage.foldername(name))[1]
-);
+);-- Updated for git commit

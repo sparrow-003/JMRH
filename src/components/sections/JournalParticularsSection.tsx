@@ -51,3 +51,4 @@ const JournalParticularsSection = () => {
 };
 
 export default JournalParticularsSection;
+// Updated for git commit

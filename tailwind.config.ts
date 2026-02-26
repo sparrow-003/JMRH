@@ -92,3 +92,4 @@ export default {
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
+// Updated for git commit

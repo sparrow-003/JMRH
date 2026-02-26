@@ -24,3 +24,4 @@ const NavBar: React.FC = () => {
 }
 
 export default NavBar
+// Updated for git commit

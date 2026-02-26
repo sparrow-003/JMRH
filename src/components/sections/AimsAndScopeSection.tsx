@@ -120,3 +120,4 @@ const AimsAndScopeSection = memo(() => {
 });
 
 export default AimsAndScopeSection;
+// Updated for git commit

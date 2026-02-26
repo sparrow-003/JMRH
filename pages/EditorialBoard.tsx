@@ -94,3 +94,4 @@ const EditorialBoard: React.FC = () => {
 };
 
 export default EditorialBoard;
+// Updated for git commit

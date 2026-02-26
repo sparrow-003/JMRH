@@ -21,3 +21,4 @@ const EditorialPage = memo(() => {
 });
 
 export default EditorialPage;
+// Updated for git commit

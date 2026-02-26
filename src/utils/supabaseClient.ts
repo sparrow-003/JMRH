@@ -8,3 +8,4 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 export async function getSupabaseClient() {
   return supabase
 }
+// Updated for git commit

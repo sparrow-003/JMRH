@@ -21,3 +21,4 @@ const EthicsPage = memo(() => {
 });
 
 export default EthicsPage;
+// Updated for git commit

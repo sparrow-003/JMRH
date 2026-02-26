@@ -62,3 +62,4 @@ export const revealLeft: Variants = {
     },
   },
 };
+// Updated for git commit

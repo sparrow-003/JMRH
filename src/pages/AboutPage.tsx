@@ -23,3 +23,4 @@ const AboutPage = memo(() => {
 });
 
 export default AboutPage;
+// Updated for git commit

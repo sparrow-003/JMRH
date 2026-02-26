@@ -143,3 +143,4 @@ const DashboardSidebar = memo(({ role }: DashboardSidebarProps) => {
 });
 
 export default DashboardSidebar;
+// Updated for git commit

@@ -50,3 +50,4 @@ const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) => {
 };
 
 export default ProtectedRoute;
+// Updated for git commit

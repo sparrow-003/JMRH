@@ -117,3 +117,4 @@ const AboutSection = memo(() => {
 });
 
 export default AboutSection;
+// Updated for git commit

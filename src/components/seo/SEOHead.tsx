@@ -78,3 +78,4 @@ const SEOHead = ({ title, description, keywords, canonical, ogType = "website", 
 };
 
 export default SEOHead;
+// Updated for git commit

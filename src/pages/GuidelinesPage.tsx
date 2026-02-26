@@ -21,3 +21,4 @@ const GuidelinesPage = memo(() => {
 });
 
 export default GuidelinesPage;
+// Updated for git commit
