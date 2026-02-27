@@ -76,4 +76,5 @@ if (document.readyState === 'loading') {
 } else {
   mountApp();
 }
+
 // Updated for git commit

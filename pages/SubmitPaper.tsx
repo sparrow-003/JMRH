@@ -163,4 +163,5 @@ const SubmitPaper: React.FC = () => {
 };
 
 export default SubmitPaper;
+
 // Updated for git commit

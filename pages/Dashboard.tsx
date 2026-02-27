@@ -36,4 +36,6 @@ const Dashboard: React.FC = () => {
   }
 };
 
-export default Dashboard;// Updated for git commit
+export default Dashboard;
+
+// Updated for git commit

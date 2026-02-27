@@ -105,4 +105,5 @@ const AuthorGuidelines: React.FC = () => {
 };
 
 export default AuthorGuidelines;
+
 // Updated for git commit

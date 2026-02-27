@@ -97,4 +97,5 @@ export interface NavItem {
   href: string;
   roles?: UserRole[];
 }
+
 // Updated for git commit

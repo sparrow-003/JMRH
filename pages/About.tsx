@@ -78,4 +78,5 @@ const About: React.FC = () => {
 };
 
 export default About;
+
 // Updated for git commit

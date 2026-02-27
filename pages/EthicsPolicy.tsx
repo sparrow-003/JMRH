@@ -77,4 +77,5 @@ const EthicsPolicy: React.FC = () => {
 };
 
 export default EthicsPolicy;
+
 // Updated for git commit

@@ -76,4 +76,5 @@ export const MOCK_ARCHIVES: Issue[] = [
 
 export const MOCK_USERS: UserProfile[] = [];
 export const MOCK_MANUSCRIPTS: Manuscript[] = [];
+
 // Updated for git commit

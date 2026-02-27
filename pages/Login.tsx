@@ -242,4 +242,5 @@ const Login: React.FC = () => {
 };
 
 export default Login;
+
 // Updated for git commit
